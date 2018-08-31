@@ -4,6 +4,7 @@ using System.Text;
 using Who.BL.IServices;
 using Who.Data;
 using Who.DAL;
+using System.Linq;
 
 namespace Who.DAL.Services
 {
@@ -21,17 +22,27 @@ namespace Who.DAL.Services
 
         public User Get(int id)
         {
-            throw new NotImplementedException();
+            using (var context = new ApplicationDbContext()) {
+                return context.Users.FirstOrDefault(u => u.Id == id);
+            }
         }
 
         public User Update(User model)
         {
-            throw new NotImplementedException();
+            using (var context = new ApplicationDbContext())
+            {
+                context.Users.Attach(model);
+                context.SaveChanges();
+            }
+            return model;
         }
 
         public IEnumerable<User> GetAll()
         {
-            throw new NotImplementedException();
+            using (var context = new ApplicationDbContext())
+            {
+                return context.Users.ToList();
+            }
         }
     }
 }
