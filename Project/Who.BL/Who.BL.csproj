@@ -4,4 +4,13 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Who.DAL\Who.DAL.csproj" />
+    <ProjectReference Include="..\Who.Data\Who.Data.csproj" />
+  </ItemGroup>
+
 </Project>
