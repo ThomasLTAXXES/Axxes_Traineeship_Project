@@ -6,16 +6,17 @@ namespace Who.Web.Controllers
 {
     public class GameController : Controller
     {
-        private IService<User> _userService;
+        private IRepository<User> _userService;
         
 
-        public GameController(IService<User>userService)
+        public GameController(IRepository<User>userService)
         {
             _userService = userService;
         }
 
         public ActionResult Index()
         {
+            _userService.Create(new Data.User { FirstName = "Thomas", LastName = "Lefever-Teughels" });
             return View();
         }
     }

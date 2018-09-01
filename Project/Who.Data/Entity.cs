@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Who.Data
 {
-    public class Round : Entity
+    public abstract class Entity
     {
-        public bool? CorrectAnswer { get; set; }
+        public int Id { get; set; }
     }
 }

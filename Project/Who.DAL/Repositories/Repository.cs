@@ -8,40 +8,40 @@ using System.Linq;
 
 namespace Who.DAL.Services
 {
-    public class UserService : IService<User>
+    public class Repository<T> : IRepository<T> where T: Entity
     {
-        public User Create(User model)
+        public T Create(T model)
         {
             using (var context = new ApplicationDbContext())
             {
-                context.Users.Add(model);
+                context.Set<T>().Add(model);
                 context.SaveChanges();
             }
             return model;
         }
 
-        public User Get(int id)
+        public T Get(int id)
         {
             using (var context = new ApplicationDbContext()) {
-                return context.Users.FirstOrDefault(u => u.Id == id);
+                return context.Set<T>().FirstOrDefault(u => u.Id == id);
             }
         }
 
-        public User Update(User model)
+        public T Update(T model)
         {
             using (var context = new ApplicationDbContext())
             {
-                context.Users.Attach(model);
+                context.Set<T>().Attach(model);
                 context.SaveChanges();
             }
             return model;
         }
 
-        public IEnumerable<User> GetAll()
+        public IEnumerable<T> GetAll()
         {
             using (var context = new ApplicationDbContext())
             {
-                return context.Users.ToList();
+                return context.Set<T>().ToList();
             }
         }
     }

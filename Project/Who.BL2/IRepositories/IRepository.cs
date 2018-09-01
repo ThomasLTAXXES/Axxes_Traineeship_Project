@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Who.BL.IServices
 {
-    public interface IService<T>
+    public interface IRepository<T>
     {
         T Create(T model);
         T Get(int id);

@@ -61,7 +61,7 @@
     </Compile>
     <Compile Include="Migrations\DbMigrationConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\UserService.cs" />
+    <Compile Include="Repositories\Repository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
