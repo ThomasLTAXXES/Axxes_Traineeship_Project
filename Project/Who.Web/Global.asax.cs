@@ -13,6 +13,8 @@ using Who.DAL;
 using Who.DAL.Migrations;
 using Who.DAL.Services;
 using Who.Data;
+using Who.Web.Controllers;
+using Autofac.Integration.Mvc;
 
 namespace Who.Web
 {
@@ -22,8 +24,11 @@ namespace Who.Web
         protected void Application_Start()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterType<IService<User>>().As<UserService>();
+            builder.RegisterType<UserService>().As(typeof(IService<User>));
+            builder.RegisterControllers(typeof(MvcApplication).Assembly);
             Container = builder.Build();
+
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(Container));
 
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, DbMigrationConfig>());
             AreaRegistration.RegisterAllAreas();
@@ -31,5 +36,6 @@ namespace Who.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+        
     }
 }

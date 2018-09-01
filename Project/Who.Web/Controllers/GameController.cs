@@ -7,6 +7,7 @@ namespace Who.Web.Controllers
     public class GameController : Controller
     {
         private IService<User> _userService;
+        
 
         public GameController(IService<User>userService)
         {
