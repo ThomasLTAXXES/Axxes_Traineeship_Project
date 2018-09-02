@@ -21,7 +21,7 @@ namespace Who.BL.Services
             _imageRepository = imageRepository;
         }
 
-        public GameEntity StartGame(int userId)
+        public int StartGame(int userId)
         {
             GameEntity game = new GameEntity
             {
@@ -29,7 +29,7 @@ namespace Who.BL.Services
                 StartDate = DateTime.Now
             };
 
-            return _gameRepository.Create(game);
+            return _gameRepository.Create(game).Id;
         }
 
         public bool MayTheGameHaveMoreRounds(int gameId)
@@ -101,7 +101,7 @@ namespace Who.BL.Services
             var game = _gameRepository.Get(gameId);
             game.Duration = DateTime.Now - game.StartDate;
             game.Rounds.Last().CorrectAnswer = succes;
-            if(game.Rounds.Count == ROUNDS_PER_GAME)
+            if (game.Rounds.Count == ROUNDS_PER_GAME)
             {
 
             }
@@ -116,9 +116,18 @@ namespace Who.BL.Services
             gameEntity.Score = 1;
         }
 
-        public IEnumerable<GameEntity> GetAllGamesForPlayer(int userId, DateTime startDate, DateTime endDate)
+        public IEnumerable<Score> GetAllGamesForPlayer(int userId, DateTime startDate, DateTime endDate)
         {
-            return _gameRepository.GetAll().Where(g => g.UserId == userId && g.StartDate.BetweenIncludeBoundaries(startDate, endDate));
+            return _gameRepository.GetAll()
+                .Where(g => g.UserId == userId && g.StartDate.BetweenIncludeBoundaries(startDate, endDate))
+                .Select(g => new Score
+                {
+                    AmountOfRoundsPlayed = g.Rounds.Count(),
+                    Points = g.Score,
+                    StartDate = g.StartDate,
+                    Duration = g.Duration,
+                    AmountOfCorrectAnswers = g.Rounds.Where(x=>x.CorrectAnswer.HasValue && x.CorrectAnswer.Value).Count()
+                }).ToList();
         }
     }
 }

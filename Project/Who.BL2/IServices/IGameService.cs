@@ -7,7 +7,7 @@ namespace Who.BL.IServices
 {
     public interface IGameService
     {
-        GameEntity StartGame(int userId);
+        int StartGame(int userId);
 
         bool MayTheGameHaveMoreRounds(int gameId);
 
@@ -15,6 +15,6 @@ namespace Who.BL.IServices
 
         bool AnswerRound(Round round, int answer, int gameId);
 
-        IEnumerable<GameEntity> GetAllGamesForPlayer(int userId, DateTime startDate, DateTime endDate);
+        IEnumerable<Score> GetAllGamesForPlayer(int userId, DateTime startDate, DateTime endDate);
     }
 }

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Image.cs" />
     <Compile Include="Round.cs" />
+    <Compile Include="Score.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Who.Data\Who.Data.csproj">
