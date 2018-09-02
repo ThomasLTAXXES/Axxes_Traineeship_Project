@@ -24,7 +24,7 @@ namespace Who.Web
         protected void Application_Start()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterType(typeof(Repository<User>)).As(typeof(IRepository<User>));
+            builder.RegisterType(typeof(Repository<UserEntity>)).As(typeof(IRepository<UserEntity>));
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             Container = builder.Build();
 

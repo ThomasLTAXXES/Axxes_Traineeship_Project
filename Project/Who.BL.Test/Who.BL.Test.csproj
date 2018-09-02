@@ -49,10 +49,27 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mocks\Repositories\MemoryRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\Services\GameServiceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Who.BL.Domain\Who.BL.Domain.csproj">
+      <Project>{133ebce8-5378-4d1b-8b13-9bd8485ad099}</Project>
+      <Name>Who.BL.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Who.BL2\Who.BL.csproj">
+      <Project>{4d58529a-5e2d-4d7c-a168-195e8abd952d}</Project>
+      <Name>Who.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Who.Data\Who.Data.csproj">
+      <Project>{09ff070f-5311-4fc2-9e20-52c0cae30760}</Project>
+      <Name>Who.Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

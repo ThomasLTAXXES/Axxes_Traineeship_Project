@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{4D58529A-5E2D-4D7C-A168-195E8ABD952D}</ProjectGuid>
+    <ProjectGuid>{2C7DE2E3-BCE6-4EA5-A784-35BF9D90A77C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Who.BL</RootNamespace>
-    <AssemblyName>Who.BL</AssemblyName>
+    <RootNamespace>Who.Utils</RootNamespace>
+    <AssemblyName>Who.Utils</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -32,7 +32,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -42,28 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IRepositories\IRepository.cs" />
-    <Compile Include="IServices\IGameService.cs" />
-    <Compile Include="IServices\IUserService.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\GameService.cs" />
+    <Compile Include="DateTimeExtensions.cs" />
+    <Compile Include="EnumerableExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Who.BL.Domain\Who.BL.Domain.csproj">
-      <Project>{133ebce8-5378-4d1b-8b13-9bd8485ad099}</Project>
-      <Name>Who.BL.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Who.Data\Who.Data.csproj">
-      <Project>{09ff070f-5311-4fc2-9e20-52c0cae30760}</Project>
-      <Name>Who.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Who.Utils\Who.Utils.csproj">
-      <Project>{2c7de2e3-bce6-4ea5-a784-35bf9d90a77c}</Project>
-      <Name>Who.Utils</Name>
-    </ProjectReference>
+    <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

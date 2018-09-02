@@ -6,10 +6,10 @@ namespace Who.Web.Controllers
 {
     public class GameController : Controller
     {
-        private IRepository<User> _userService;
+        private IRepository<UserEntity> _userService;
         
 
-        public GameController(IRepository<User>userService)
+        public GameController(IRepository<UserEntity>userService)
         {
             _userService = userService;
         }

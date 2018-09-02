@@ -17,7 +17,7 @@ namespace Who.DAL.Migrations
 
         protected override void Seed(Who.DAL.ApplicationDbContext context)
         {
-            var user = new User { FirstName = "Tester", LastName = "Demo" };
+            var user = new UserEntity { FirstName = "Tester", LastName = "Demo" };
             context.Users.Add(user);
             base.Seed(context);
         }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Who.Data
 {
-    public class Round : Entity
+    public class RoundEntity : Entity
     {
         public bool? CorrectAnswer { get; set; }
     }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Who.Data
 {
-    public class User : Entity
+    public class UserEntity : Entity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
