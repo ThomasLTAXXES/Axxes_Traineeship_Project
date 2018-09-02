@@ -18,7 +18,7 @@ namespace Who.DAL
             modelBuilder.Types().Configure(c =>
             {
                 string tableName = c.ClrType.Name;
-                tableName = tableName.Remove(tableName.LastIndexOf("Entity") + 1);
+                tableName = tableName.Remove(tableName.LastIndexOf("Entity"));
                 c.ToTable(tableName);
             });
 

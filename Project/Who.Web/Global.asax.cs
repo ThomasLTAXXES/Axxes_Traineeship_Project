@@ -10,11 +10,11 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Who.BL.IServices;
 using Who.DAL;
-using Who.DAL.Migrations;
 using Who.DAL.Services;
 using Who.Data;
 using Who.Web.Controllers;
 using Autofac.Integration.Mvc;
+using Who.DAL.DatabaseInitialize;
 
 namespace Who.Web
 {
@@ -30,7 +30,7 @@ namespace Who.Web
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(Container));
 
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, DbMigrationConfig>());
+            Database.SetInitializer(new ApplicationDbContextInitializer());
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
