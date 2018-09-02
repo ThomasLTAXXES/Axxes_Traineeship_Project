@@ -16,7 +16,6 @@ namespace Who.Web.Controllers
 
         public ActionResult Index()
         {
-            _userService.Create(new Data.User { FirstName = "Thomas", LastName = "Lefever-Teughels" });
             return View();
         }
     }
