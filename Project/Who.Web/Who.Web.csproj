@@ -234,7 +234,7 @@
       <Name>Who.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Who.Data\Who.Data.csproj">
-      <Project>{09ff070f-5311-4fc2-9e20-52c0cae30760}</Project>
+      <Project>{b6665c68-2551-429c-9c2d-3e3d0bc7aadf}</Project>
       <Name>Who.Data</Name>
     </ProjectReference>
   </ItemGroup>
