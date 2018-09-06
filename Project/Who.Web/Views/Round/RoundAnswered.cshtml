@@ -1,0 +1,45 @@
+﻿@model Who.Web.Models.RoundAnsweredViewModel
+
+@{
+    ViewBag.Title = "RoundAnswered";
+}
+
+<h2>RoundAnswered</h2>
+
+<div>
+    <h4>RoundViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+    </dl>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GuessedImageId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GuessedImageId)
+        </dd>
+
+    </dl>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CorrectImageId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CorrectImageId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink(linkText: "Next round", actionName: "Index", controllerName: "Game", routeValues: null, htmlAttributes: null)
+</p>

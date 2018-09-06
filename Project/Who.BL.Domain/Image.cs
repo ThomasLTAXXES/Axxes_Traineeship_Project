@@ -9,5 +9,7 @@ namespace Who.BL.Domain
    public class Image
     {
         public string Url { get; set; }
+
+        public int Id { get; set; }
     }
 }

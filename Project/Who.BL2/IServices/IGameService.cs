@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Who.BL.Domain;
-using Who.Data;
 
 namespace Who.BL.IServices
 {
@@ -13,8 +12,16 @@ namespace Who.BL.IServices
 
         Round StartRound(int gameId);
 
-        bool AnswerRound(Round round, int answer, int gameId);
+        bool AnswerRound(int answerImageId, int playerId);
 
-        IEnumerable<Score> GetAllGamesForPlayer(int userId, DateTime startDate, DateTime endDate);
+        IEnumerable<Score> GetAllHighScores(int userId, DateTime startDate, DateTime endDate);
+
+        RoundInfo GetRoundInfo(int roundId);
+
+        RoundInfo GetLatestRoundInfo(int userId);
+
+        int RoundsPlayedInGame(int gameId);
+
+        int GetRoundsPerGame();
     }
 }

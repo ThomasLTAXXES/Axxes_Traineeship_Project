@@ -1,22 +1,23 @@
 ﻿using System.Web.Mvc;
 using Who.BL.IServices;
-using Who.Data;
+using Who.Web.Models;
 
 namespace Who.Web.Controllers
 {
     public class GameController : Controller
     {
-        private IRepository<UserEntity> _userService;
-        
+        private IGameService _gameService;
 
-        public GameController(IRepository<UserEntity>userService)
+
+        public GameController(IGameService gameService)
         {
-            _userService = userService;
+            _gameService = gameService;
         }
 
         public ActionResult Index()
         {
-            return View();
+            int gameId = _gameService.StartGame(1);
+            return View(new GameViewModel { AmountOfRoundsPlayed = _gameService.RoundsPlayedInGame(gameId), TotalRounds = _gameService.GetRoundsPerGame(), Id = gameId });
         }
     }
 }

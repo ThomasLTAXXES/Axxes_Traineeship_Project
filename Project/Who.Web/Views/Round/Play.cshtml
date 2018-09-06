@@ -1,0 +1,30 @@
+﻿@model Who.Web.Models.RoundViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+    <h4>RoundViewModel</h4>
+    <hr />
+    @foreach (var image in Model.Images)
+    {
+        <a href="@Url.Action("Guess", new { id= image.Id })">
+            <img src=@image.Url alt="">
+        </a>
+    }
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+</p>

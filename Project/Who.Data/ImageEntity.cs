@@ -7,6 +7,9 @@ namespace Who.Data
     public class ImageEntity : Entity
     {
         public string Url { get; set; }
+
         public string Name { get; set; }
+
+        public ICollection<ImageInRoundEntity> Images { get; set; }
     }
 }

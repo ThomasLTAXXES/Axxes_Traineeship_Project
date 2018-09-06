@@ -15,6 +15,9 @@ using Who.Data;
 using Who.Web.Controllers;
 using Autofac.Integration.Mvc;
 using Who.DAL.DatabaseInitialize;
+using Who.BL.Services;
+using Who.BL.IRepositories;
+using Who.DAL.Repositories;
 
 namespace Who.Web
 {
@@ -25,8 +28,14 @@ namespace Who.Web
         {
             var builder = new ContainerBuilder();
             builder.RegisterType(typeof(Repository<UserEntity>)).As(typeof(IRepository<UserEntity>));
+            builder.RegisterType(typeof(Repository<ImageEntity>)).As(typeof(IRepository<ImageEntity>));
+            builder.RegisterType(typeof(Repository<GameEntity>)).As(typeof(IRepository<GameEntity>));
+            builder.RegisterType(typeof(Repository<RoundEntity>)).As(typeof(IRepository<RoundEntity>));
+            builder.RegisterType(typeof(Repository<ImageInRoundEntity>)).As(typeof(IRepository<ImageInRoundEntity>));
+            builder.RegisterType(typeof(MetaDataRepository)).As(typeof(IMetaDataRepository));
+            builder.RegisterType(typeof(GameService)).As(typeof(IGameService));
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
-            Container = builder.Build();
+            Container = builder.Build(); 
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(Container));
 

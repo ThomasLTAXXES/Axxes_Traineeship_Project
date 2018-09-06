@@ -5,6 +5,7 @@ using Who.BL.IServices;
 using Who.Data;
 using Who.DAL;
 using System.Linq;
+using System.Data.Entity;
 
 namespace Who.DAL.Services
 {
@@ -31,7 +32,8 @@ namespace Who.DAL.Services
         {
             using (var context = new ApplicationDbContext())
             {
-                context.Set<T>().Attach(model);
+                               context.Set<T>().Attach(model);
+                context.Entry(model).State = EntityState.Modified;
                 context.SaveChanges();
             }
             return model;

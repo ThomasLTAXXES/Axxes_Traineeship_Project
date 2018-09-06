@@ -10,7 +10,6 @@ namespace Who.Data
         public int UserId { get; set; }
         public UserEntity User { get; set; }
         public ICollection<RoundEntity> Rounds { get; set; }
-        public int Score { get; set; }
         public DateTime StartDate { get; set; }
         public TimeSpan Duration { get; set; }
     }

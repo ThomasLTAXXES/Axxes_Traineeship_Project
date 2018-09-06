@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Image.cs" />
     <Compile Include="Round.cs" />
+    <Compile Include="RoundInfo.cs" />
     <Compile Include="Score.cs" />
   </ItemGroup>
   <ItemGroup>

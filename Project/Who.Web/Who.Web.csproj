@@ -158,9 +158,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RoundController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\GameViewModel.cs" />
+    <Compile Include="Models\ImageViewModel.cs" />
+    <Compile Include="Models\RoundAnsweredViewModel.cs" />
+    <Compile Include="Models\RoundViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -195,11 +200,12 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Game\Index.cshtml" />
+    <Content Include="Views\Round\Play.cshtml" />
+    <Content Include="Views\Round\RoundAnswered.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="Properties\" />
-    <Folder Include="Views\Game\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -215,6 +221,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Who.BL.Domain\Who.BL.Domain.csproj">
+      <Project>{133ebce8-5378-4d1b-8b13-9bd8485ad099}</Project>
+      <Name>Who.BL.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Who.BL2\Who.BL.csproj">
       <Project>{4d58529a-5e2d-4d7c-a168-195e8abd952d}</Project>
       <Name>Who.BL</Name>
