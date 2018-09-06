@@ -16,8 +16,6 @@ using Who.Web.Controllers;
 using Autofac.Integration.Mvc;
 using Who.DAL.DatabaseInitialize;
 using Who.BL.Services;
-using Who.BL.IRepositories;
-using Who.DAL.Repositories;
 
 namespace Who.Web
 {
@@ -32,7 +30,7 @@ namespace Who.Web
             builder.RegisterType(typeof(Repository<GameEntity>)).As(typeof(IRepository<GameEntity>));
             builder.RegisterType(typeof(Repository<RoundEntity>)).As(typeof(IRepository<RoundEntity>));
             builder.RegisterType(typeof(Repository<ImageInRoundEntity>)).As(typeof(IRepository<ImageInRoundEntity>));
-            builder.RegisterType(typeof(MetaDataRepository)).As(typeof(IMetaDataRepository));
+            builder.RegisterType(typeof(Repository<MetaDataEntity>)).As(typeof(IRepository<MetaDataEntity>));
             builder.RegisterType(typeof(GameService)).As(typeof(IGameService));
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             Container = builder.Build(); 

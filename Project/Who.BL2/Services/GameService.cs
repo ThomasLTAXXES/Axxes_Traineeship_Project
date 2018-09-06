@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Who.BL.Domain;
-using Who.BL.IRepositories;
 using Who.BL.IServices;
 using Who.Data;
 using Who.Utils;
@@ -15,7 +14,7 @@ namespace Who.BL.Services
         private IRepository<ImageEntity> _imageRepository;
         private IRepository<RoundEntity> _roundRepository;
         private IRepository<ImageInRoundEntity> _imageInRoundRepository;
-        private IMetaDataRepository _metaDataRepository;
+        private IRepository<MetaDataEntity> _metaDataRepository;
         private const int IMAGES_PER_ROUND = 4; //TODO: move to config or db
         public const int ROUNDS_PER_GAME = 5;//TODO: move to config or db (should be 20 but testing)
 
@@ -23,14 +22,12 @@ namespace Who.BL.Services
             IRepository<GameEntity> gameRepository,
             IRepository<ImageEntity> imageRepository,
             IRepository<RoundEntity> roundRepository,
-            IRepository<ImageInRoundEntity> imageInRoundRepository,
-            IMetaDataRepository metaDataRepository)
+            IRepository<ImageInRoundEntity> imageInRoundRepository)
         {
             _gameRepository = gameRepository;
             _imageRepository = imageRepository;
             _roundRepository = roundRepository;
             _imageInRoundRepository = imageInRoundRepository;
-            _metaDataRepository = metaDataRepository;
         }
 
         public int StartGame(int userId)
@@ -202,7 +199,7 @@ namespace Who.BL.Services
 
         public int GetRoundsPerGame()
         {
-            return ROUNDS_PER_GAME;
+            return ROUNDS_PER_GAME;// metaDataRepository.;
         }
     }
 }

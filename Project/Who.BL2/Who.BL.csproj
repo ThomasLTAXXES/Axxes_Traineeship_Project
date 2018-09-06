@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IRepositories\IMetaDataRepository.cs" />
     <Compile Include="IRepositories\IRepository.cs" />
     <Compile Include="IServices\IGameService.cs" />
     <Compile Include="IServices\IUserService.cs" />
