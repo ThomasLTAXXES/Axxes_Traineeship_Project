@@ -13,7 +13,6 @@ namespace Who.Web.Controllers
     {
         private IGameService _gameService;
 
-
         public GameController(IGameService gameService)
         {
             _gameService = gameService;

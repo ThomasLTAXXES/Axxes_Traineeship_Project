@@ -24,6 +24,28 @@ textarea {
 }
 
 .img-game {
+    margin: 0;
     max-height: 300px;
+}
+
+.img-ignore {
+    filter: grayscale(100%);
+}
+
+.border-success {
+    border: 3px solid green;
+    -webkit-box-shadow: 0 0 20px green;
+    box-shadow: 0 0 20px green;
+}
+
+.border-danger {
+    border: 3px solid red;
+    -webkit-box-shadow: 0 0 20px red;
+    box-shadow: 0 0 20px red;
+}
+
+figure {
+    padding: 0;
     margin-top: 15px;
+    max-width: 200px;
 }

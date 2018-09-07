@@ -8,6 +8,7 @@ namespace Who.BL.Domain
 {
     public class RoundInfo
     {
+        public int GameId { get; set; }
         public int CorrectImageId { get; set; }
 
         public int GuessedImageId { get; set; }

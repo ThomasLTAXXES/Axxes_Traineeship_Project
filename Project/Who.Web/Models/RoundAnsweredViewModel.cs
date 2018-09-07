@@ -7,6 +7,7 @@ namespace Who.Web.Models
 {
     public class RoundAnsweredViewModel
     {
+        public int GameId { get; set; }
         public int CorrectImageId { get; set; }
 
         public int GuessedImageId { get; set; }

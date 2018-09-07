@@ -34,15 +34,17 @@ namespace Who.Web.Controllers
         {
             _gameService.AnswerRound(id, GetUserIdFromSessionStorage());
             RoundInfo roundInfo = _gameService.GetLatestRoundInfo(GetUserIdFromSessionStorage());
-            return View("RoundAnswered", new RoundAnsweredViewModel
+            RoundAnsweredViewModel ravm = new RoundAnsweredViewModel
             {
+                GameId = roundInfo.GameId,
                 AmountOfRoundsPlayed = roundInfo.AmountOfRoundsPlayed,
                 CorrectImageId = roundInfo.CorrectImageId,
                 GuessedImageId = roundInfo.GuessedImageId,
                 Name = roundInfo.Name,
                 TotalRounds = roundInfo.TotalRounds,
                 Images = roundInfo.Images.Select(x => new ImageViewModel { Id = x.Id, Url = x.Url }).ToList()
-            });
+            };
+            return View("RoundAnswered", ravm);
         }
     }
 }

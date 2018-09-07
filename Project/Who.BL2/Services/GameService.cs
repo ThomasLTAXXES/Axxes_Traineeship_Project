@@ -237,10 +237,11 @@ namespace Who.BL.Services
 
             RoundEntity roundEntity = _roundRepository.Get(roundId);
             IEnumerable<ImageInRoundEntity> imageInRoundEntity = _imageInRoundRepository.GetAll().Where(x => x.RoundId == roundId);
+            roundInfo.GameId = roundEntity.GameId;
             roundInfo.CorrectImageId = roundEntity.CorrectImageId;
             roundInfo.GuessedImageId = roundEntity.GuessedImageId.Value;
             roundInfo.Name = _imageRepository.Get(roundEntity.CorrectImageId).Name; //TODO include
-            roundInfo.Images = imageInRoundEntity.Select(x => new Image { Id = x.Id, Url = _imageRepository.Get(x.ImageId).Url }).ToList();
+            roundInfo.Images = imageInRoundEntity.Select(x => new Image { Id = x.ImageId, Url = _imageRepository.Get(x.ImageId).Url }).ToList();
             roundInfo.AmountOfRoundsPlayed = _roundRepository.GetAll().Where(x => x.GameId == roundEntity.GameId).Count(); //TODO: include
             roundInfo.TotalRounds = ROUNDS_PER_GAME;
 
