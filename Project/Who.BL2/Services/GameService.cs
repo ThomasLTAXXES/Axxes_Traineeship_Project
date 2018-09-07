@@ -190,6 +190,7 @@ namespace Who.BL.Services
 
             RoundEntity roundEntity = _roundRepository.Get(roundId);
             IEnumerable<ImageInRoundEntity> imageInRoundEntity = _imageInRoundRepository.GetAll().Where(x => x.RoundId == roundId);
+            roundInfo.GameId = roundEntity.GameId;
             roundInfo.CorrectImageId = roundEntity.CorrectImageId;
             roundInfo.GuessedImageId = roundEntity.GuessedImageId.Value;
             roundInfo.Name = _imageRepository.Get(roundEntity.CorrectImageId).Name; //TODO include

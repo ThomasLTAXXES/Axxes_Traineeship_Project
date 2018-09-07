@@ -113,7 +113,7 @@ namespace Who.Web.Controllers
                 }
                 AddUserIdToSessionStorage(userId);
                 // Redirect to home page if the user is authenticated.
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Game");
             }
 
             return RedirectToAction("Index", "Home");

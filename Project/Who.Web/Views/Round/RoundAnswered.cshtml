@@ -27,10 +27,10 @@
 
                 if (Model.Images[i].Id == Model.CorrectImageId)
                 {
-                      <figure class="border-success">
-                          <img class="img-responsive img-game" src=@Model.Images[i].Url alt="CorrectImage">
-                      </figure>
-                    
+                    <figure class="border-success">
+                        <img class="img-responsive img-game" src=@Model.Images[i].Url alt="CorrectImage">
+                    </figure>
+
                 }
                 else if (Model.Images[i].Id == Model.GuessedImageId)
                 {
@@ -47,6 +47,6 @@
             @:</div>
         }
 </div>
-<p>
-    @Html.ActionLink(linkText: "Next round", actionName: "Index", controllerName: "Game", routeValues: null, htmlAttributes: null)
-</p>
+<script>
+    setTimeout(function () {window.location.replace('@Url.Action("Play", "Round", new { id = Model.GameId })')}, 3000);
+</script>

@@ -36,6 +36,7 @@ namespace Who.Web.Controllers
             RoundInfo roundInfo = _gameService.GetLatestRoundInfo(GetUserIdFromSessionStorage());
             RoundAnsweredViewModel ravm = new RoundAnsweredViewModel
             {
+                GameId = roundInfo.GameId,
                 AmountOfRoundsPlayed = roundInfo.AmountOfRoundsPlayed,
                 CorrectImageId = roundInfo.CorrectImageId,
                 GuessedImageId = roundInfo.GuessedImageId,

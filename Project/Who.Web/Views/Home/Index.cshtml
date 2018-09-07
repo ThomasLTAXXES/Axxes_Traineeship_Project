@@ -5,5 +5,7 @@
 <div class="jumbotron">
     <h1>Axxes Who</h1>
     <p class="lead">Axxes Who is a fun game to get to know you colleagues</p>
-    <p><a class="btn btn-primary btn-lg">Log In</a></p>
+    <p>
+        @Html.ActionLink("Log In", "SignIn", "Account", new { area = "" }, new { @class = "btn btn-primary btn-lg" })
+    </p>
 </div>
