@@ -173,15 +173,40 @@ namespace Who.BL.Services
         {
             GetHighScoresForAllPlayersResult dbResult = _gameRepository.GetHighScoresForAllPlayers(ROUNDS_PER_GAME, startDate, endDate);
 
-           return dbResult.Results.Select(r =>
-            new Score
+            return dbResult.Results.Select(r =>
+             new Score
+             {
+                 AmountOfCorrectAnswers = r.AmountOfCorrectAnswers,
+                 Duration = r.Duration,
+                 AmountOfGamesPlayed = r.AmountOfGamesPlayed,
+                 AmountOfRoundsPerGame = r.AmountOfRoundsPerGame,
+                 FullName = _userRepository.Get(r.UserId).FullName
+             }).OrderBy(x => x.AmountOfCorrectAnswers).ThenBy(x => x.Duration).ToList();
+        }
+
+        public PersonalScore GetCurrentScorePreviousScoreAndRank(int userId, DateTime startDate, DateTime endDate)
+        {
+            PersonalScore personalScore = new PersonalScore();
+            List<GetHighScoresForAllPlayersResultItem> dbResult = _gameRepository.GetHighScoresForAllPlayers(ROUNDS_PER_GAME, startDate, endDate).Results.OrderBy(x => x.AmountOfCorrectAnswers).ThenBy(x => x.Duration).ToList();
+            for (int i = 0; i < dbResult.Count(); i++)
             {
-                AmountOfCorrectAnswers = r.AmountOfCorrectAnswers,
-                Duration = r.Duration,
-                AmountOfGamesPlayed = r.AmountOfGamesPlayed,
-                AmountOfRoundsPerGame = r.AmountOfRoundsPerGame,
-                FullName = _userRepository.Get(r.UserId).FullName
-            }).OrderBy(x=>x.AmountOfCorrectAnswers).ThenBy(x=>x.Duration).ToList();
+                if (userId == dbResult[i].UserId)
+                {
+                    personalScore.Rank = i;
+                    break;
+                }
+            }
+
+            GetHighScoresForIndividualPlayerResult highScoresIndividualResult = _gameRepository.GetHighScoresForIndividualPlayer(ROUNDS_PER_GAME, startDate, endDate, userId);
+            personalScore.PersonalScoreItems = highScoresIndividualResult.Results
+                .Select(r => new PersonalScoreItem
+                {
+                    AmountOfCorrectAnswers = r.AmountOfCorrectAnswers,
+                    AmountOfRoundsPerGame = r.AmountOfRoundsPerGame,
+                    Duration = r.Duration
+                });
+
+            return personalScore;
         }
 
         public RoundInfo GetRoundInfo(int roundId)

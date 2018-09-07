@@ -45,5 +45,48 @@ namespace Who.DAL.Repositories
                 };
             }
         }
+
+        public GetHighScoresForIndividualPlayerResult GetHighScoresForIndividualPlayer(int amountOfRounds, DateTime startDate, DateTime endDate, int userId)
+        {
+            SqlParameter[] sqlParams;
+            using (var context = new ApplicationDbContext())
+            {
+                sqlParams = new SqlParameter[]
+            {
+                 new SqlParameter
+                 {
+                     ParameterName = "@p_AmountOfRounds",
+                     SqlDbType = SqlDbType.Int,
+                     Value  =amountOfRounds
+                 },
+                 new SqlParameter
+                 {
+                     ParameterName = "@p_StartDate",
+                     SqlDbType = SqlDbType.DateTime,
+                     Value  =startDate
+                 },
+                 new SqlParameter
+                 {
+                     ParameterName = "@p_EndDate",
+                     SqlDbType = SqlDbType.DateTime,
+                     Value  =endDate
+                 },
+                 new SqlParameter
+                 {
+                     ParameterName = "@p_UserId",
+                     SqlDbType = SqlDbType.Int,
+                     Value  =userId
+                 }
+            };
+
+
+                return new GetHighScoresForIndividualPlayerResult
+                {
+                    Results = context.Database
+                       .SqlQuery<GetHighScoresForIndividualPlayerResultItem>("USP_GetHighScoresForIndividualPlayer @p_AmountOfRounds, @p_StartDate, @p_EndDate, @p_UserId", sqlParams)
+                       .ToList()
+                };
+            }
+        }
     }
 }

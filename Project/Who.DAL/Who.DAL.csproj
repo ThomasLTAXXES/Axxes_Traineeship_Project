@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="StoredProcedures\USP_GetHighScoresForEachPlayer.sql" />
+    <Content Include="StoredProcedures\USP_GetHighScoresForIndividualPlayer.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

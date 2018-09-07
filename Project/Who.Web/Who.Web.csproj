@@ -203,6 +203,7 @@
     </Compile>
     <Compile Include="Models\GameViewModel.cs" />
     <Compile Include="Models\ImageViewModel.cs" />
+    <Compile Include="Models\PersonalScoreViewModel.cs" />
     <Compile Include="Models\RoundAnsweredViewModel.cs" />
     <Compile Include="Models\RoundViewModel.cs" />
     <Compile Include="Models\ScoreViewModel.cs" />
@@ -244,6 +245,7 @@
     <Content Include="Views\Round\Play.cshtml" />
     <Content Include="Views\Round\RoundAnswered.cshtml" />
     <Content Include="Views\Game\HighScoresForAllPlayers.cshtml" />
+    <Content Include="Views\Game\HighScoresPersonal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

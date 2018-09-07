@@ -23,5 +23,7 @@ namespace Who.BL.IServices
         int GetRoundsPerGame();
 
         IEnumerable<Score> GetHighScoresForAllPlayers(DateTime startDate, DateTime endDate);
+
+        PersonalScore GetCurrentScorePreviousScoreAndRank(int userId, DateTime startDate, DateTime endDate);
     }
 }

@@ -49,6 +49,7 @@
     <Compile Include="MetaDataEntity.cs" />
     <Compile Include="MetaDataEntityType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Results\GetHighScoresForIndividualPlayerResult.cs" />
     <Compile Include="RoundEntity.cs" />
     <Compile Include="UserEntity.cs" />
     <Compile Include="Results\GetHighScoresForAllPlayersResult.cs" />

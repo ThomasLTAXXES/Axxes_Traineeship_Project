@@ -38,5 +38,11 @@ namespace Who.Web.Controllers
                 AmountOfRoundsPerGame = s.AmountOfRoundsPerGame
             }).ToList());
         }
+
+        public ActionResult HighScoresPersonal()
+        {
+            var x =_gameService.GetCurrentScorePreviousScoreAndRank(GetUserIdFromSessionStorage(), new DateTime(DateTime.Now.Year, DateTime.Now.Month, 01), DateTime.MaxValue);
+            return View();
+        }
     }
 }
