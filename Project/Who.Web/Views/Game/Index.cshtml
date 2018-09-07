@@ -3,32 +3,19 @@
 @{
     ViewBag.Title = "Home";
 }
-
-<h2>Home</h2>
-
-<div>
-    <h4>GameViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.AmountOfRoundsPlayed)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AmountOfRoundsPlayed)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TotalRounds)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TotalRounds)
-        </dd>
-
-    </dl>
+<div class="row">
+    <div class="col-xs-12 text-center">
+        <h1>Who's Who?</h1>
+        <hr/>
+    </div>
 </div>
-<p>
-    @Html.ActionLink(linkText: "Play round", actionName: "Play", controllerName : "Round" ,routeValues: new {  id = Model.Id }, htmlAttributes:null) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 text-center">
+        @Html.ActionLink("Play!", "Play", "Round", new { area = "" }, new { @class = "btn btn-success btn-lg" })
+        <hr />
+    </div>
+    <div class="col-xs-12 col-sm-6 text-center">
+        @Html.ActionLink("View Highscores", "HighScoresForAllPlayers", "Game", new { area = "" }, new { @class = "btn btn-primary btn-lg" })
+        <hr />
+    </div>
+</div>

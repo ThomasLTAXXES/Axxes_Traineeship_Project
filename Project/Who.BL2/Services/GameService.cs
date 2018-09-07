@@ -214,7 +214,7 @@ namespace Who.BL.Services
             {
                 if (userId == dbResult[i].UserId)
                 {
-                    personalScore.Rank = i;
+                    personalScore.Rank = i+1;
                     break;
                 }
             }
