@@ -102,11 +102,11 @@ namespace Who.BL.Services
                 CorrectImageId = image.Id
             };
             List<ImageInRoundEntity> imageInRoundEntitiesToSave = new List<ImageInRoundEntity>(IMAGES_PER_ROUND);
-            
             _roundRepository.Create(roundEntity);
             roundEntity.ImagesInRound = new List<ImageInRoundEntity>();
             ImageInRoundEntity imageInRoundEntityCorrect = new ImageInRoundEntity { ImageId = image.Id, RoundId = roundEntity.Id };
             imageInRoundEntitiesToSave.Add(imageInRoundEntityCorrect);
+            roundEntity.ImagesInRound.Add(imageInRoundEntityCorrect);
 
             round.Name = image.Name;
 
