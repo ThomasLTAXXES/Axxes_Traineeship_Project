@@ -1,0 +1,22 @@
+﻿@model Who.Web.Models.PersonalScoreViewModel
+
+@{
+    ViewBag.Title = "HighScoresPersonal";
+}
+
+<h2>HighScoresPersonal</h2>
+
+<div>
+    <h4>PersonalScoreViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Rank)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rank)
+        </dd>
+
+    </dl>
+</div>
