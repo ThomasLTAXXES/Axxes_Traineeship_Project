@@ -6,8 +6,21 @@
 
 <div class="row">
     <div class="col-xs-12 text-center">
-        <h3>Rank #@Model.Rank</h3>
-        <h6>New Score</h6>
-        <h6>Previous Top Score</h6>
+        <h1>Rank #@Model.Rank</h1>
+        <h4>New Score</h4>
+        <h3>@Model.PersonalScoreItems[0].AmountOfCorrectAnswers / @Model.PersonalScoreItems[0].AmountOfRoundsPerGame</h3>
+        <h4>Previous Top Score</h4>
+        <h3>@Model.PersonalScoreItems[1].AmountOfCorrectAnswers / @Model.PersonalScoreItems[1].AmountOfRoundsPerGame</h3>
+        <hr />
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-6 text-center">
+        @Html.ActionLink("Try Again", "Play", "Round", new { area = "" }, new { @class = "btn btn-success btn-lg" })
+        <hr />
+    </div>
+    <div class="col-xs-12 col-sm-6 text-center">
+        @Html.ActionLink("View Highscores", "HighScoresForAllPlayers", "Game", new { area = "" }, new { @class = "btn btn-primary btn-lg" })
+        <hr />
     </div>
 </div>

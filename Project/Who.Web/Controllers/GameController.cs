@@ -40,10 +40,16 @@ namespace Who.Web.Controllers
 
         public ActionResult HighScoresPersonal()
         {
-            var x =_gameService.GetCurrentScorePreviousScoreAndRank(GetUserIdFromSessionStorage(), new DateTime(DateTime.Now.Year, DateTime.Now.Month, 01), DateTime.MaxValue);
+            var personalScore =_gameService.GetCurrentScorePreviousScoreAndRank(GetUserIdFromSessionStorage(), new DateTime(DateTime.Now.Year, DateTime.Now.Month, 01), DateTime.MaxValue);
             PersonalScoreViewModel psvm = new PersonalScoreViewModel
             {
-                Rank = x.Rank
+                Rank = personalScore.Rank,
+                PersonalScoreItems = personalScore.PersonalScoreItems.Select(psi => new PersonalScoreItemViewModel {
+                    Duration = psi.Duration,
+                    AmountOfCorrectAnswers = psi.AmountOfCorrectAnswers,
+                    AmountOfRoundsPerGame = psi.AmountOfRoundsPerGame
+                }).ToList()
+
             };
             return View(psvm);
         }
