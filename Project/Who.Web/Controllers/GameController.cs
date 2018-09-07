@@ -41,7 +41,11 @@ namespace Who.Web.Controllers
         public ActionResult HighScoresPersonal()
         {
             var x =_gameService.GetCurrentScorePreviousScoreAndRank(GetUserIdFromSessionStorage(), new DateTime(DateTime.Now.Year, DateTime.Now.Month, 01), DateTime.MaxValue);
-            return View();
+            PersonalScoreViewModel psvm = new PersonalScoreViewModel
+            {
+                Rank = x.Rank
+            };
+            return View(psvm);
         }
     }
 }
