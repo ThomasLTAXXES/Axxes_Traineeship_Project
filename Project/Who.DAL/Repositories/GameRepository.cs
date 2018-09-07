@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Who.BL.IRepositories;
 using Who.DAL.Services;
 using Who.Data;
@@ -13,17 +11,38 @@ namespace Who.DAL.Repositories
 {
     public class GameRepository : Repository<GameEntity>, IGameRepository
     {
-        public GetHighScoresForAllPlayersResult GetHighScoresForAllPlayers()
+        public GetHighScoresForAllPlayersResult GetHighScoresForAllPlayers(int amountOfRounds, DateTime startDate, DateTime endDate)
         {
+            SqlParameter[] sqlParams;
             using (var context = new ApplicationDbContext())
             {
-                var clientIdParameter = new SqlParameter("@ClientId", 4);
-
-                return new GetHighScoresForAllPlayersResult {
-                    Results = context.Database
-                    .SqlQuery<GetHighScoresForAllPlayersResultItem>("GetResultsForCampaign @ClientId", clientIdParameter)
-                    .ToList()
+                sqlParams = new SqlParameter[]
+            {
+                 new SqlParameter
+                 {
+                     ParameterName = "@p_AmountOfRounds",
+                     SqlDbType = SqlDbType.Int,
+                     Value  =amountOfRounds
+                 },
+                 new SqlParameter
+                 {
+                     ParameterName = "@p_StartDate",
+                     SqlDbType = SqlDbType.DateTime,
+                     Value  =startDate
+                 },
+                 new SqlParameter
+                 {
+                     ParameterName = "@p_EndDate",
+                     SqlDbType = SqlDbType.DateTime,
+                     Value  =endDate
+                 }
             };
+                return new GetHighScoresForAllPlayersResult
+                {
+                    Results = context.Database
+                    .SqlQuery<GetHighScoresForAllPlayersResultItem>("USP_GetHighScoresForEachPlayer @p_AmountOfRounds, @p_StartDate, @p_EndDate", sqlParams)
+                    .ToList()
+                };
             }
         }
     }

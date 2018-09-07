@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Who.BL.Domain
+namespace Who.Web.Models
 {
-    public class Score
+    public class ScoreViewModel
     {
         public int AmountOfCorrectAnswers { get; set; }
 

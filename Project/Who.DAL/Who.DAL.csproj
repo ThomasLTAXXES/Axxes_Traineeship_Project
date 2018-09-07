@@ -72,5 +72,8 @@
       <Name>Who.Data</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="StoredProcedures\USP_GetHighScoresForEachPlayer.sql" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

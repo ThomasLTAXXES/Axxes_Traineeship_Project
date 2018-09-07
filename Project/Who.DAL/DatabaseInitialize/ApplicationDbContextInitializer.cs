@@ -3,7 +3,7 @@ using Who.Data;
 
 namespace Who.DAL.DatabaseInitialize
 {
-    public class ApplicationDbContextInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    public class ApplicationDbContextInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
     {
         protected override void Seed(ApplicationDbContext context)
         {

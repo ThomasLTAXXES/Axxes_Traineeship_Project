@@ -205,6 +205,7 @@
     <Compile Include="Models\ImageViewModel.cs" />
     <Compile Include="Models\RoundAnsweredViewModel.cs" />
     <Compile Include="Models\RoundViewModel.cs" />
+    <Compile Include="Models\ScoreViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -242,6 +243,7 @@
     <Content Include="Views\Game\Index.cshtml" />
     <Content Include="Views\Round\Play.cshtml" />
     <Content Include="Views\Round\RoundAnswered.cshtml" />
+    <Content Include="Views\Game\HighScoresForAllPlayers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

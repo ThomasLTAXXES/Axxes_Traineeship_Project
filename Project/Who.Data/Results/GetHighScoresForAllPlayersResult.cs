@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Who.Data.Results
 {
@@ -9,10 +10,14 @@ namespace Who.Data.Results
 
     public class GetHighScoresForAllPlayersResultItem
     {
-        public int Max { get; set; }
+        public int AmountOfCorrectAnswers { get; set; }
 
-        public int Total { get; set; }
+        public int AmountOfRoundsPerGame { get; set; }
 
         public int UserId { get; set; }
+
+        public TimeSpan Duration { get; set; }
+
+        public int AmountOfGamesPlayed { get; set; }
     }
 }
