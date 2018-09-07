@@ -8,5 +8,9 @@ namespace Who.BL.Domain
         public List<Image> Images { get; set; }
 
         public string Name { get; set; }
+
+        public int AmountOfRoundsPlayed { get; set; }
+
+        public int TotalRounds { get; set; }
     }
 }

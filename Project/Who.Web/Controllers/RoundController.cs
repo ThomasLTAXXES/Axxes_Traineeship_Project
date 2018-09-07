@@ -22,7 +22,9 @@ namespace Who.Web.Controllers
             RoundViewModel roundViewModel = new RoundViewModel
             {
                 Images = currentRound.Images.Select(i => new ImageViewModel { Url = i.Url, Id = i.Id }).ToList(),
-                Name = currentRound.Name
+                Name = currentRound.Name,
+                RoundIndex = currentRound.AmountOfRoundsPlayed+1,
+                TotalRounds = currentRound.TotalRounds
             };
             return View(roundViewModel);
         }

@@ -10,5 +10,9 @@ namespace Who.Web.Models
         public List<ImageViewModel> Images { get; set; }
 
         public string Name { get; set; }
+
+        public int RoundIndex { get; set; }
+
+        public int TotalRounds { get; set; }
     }
 }

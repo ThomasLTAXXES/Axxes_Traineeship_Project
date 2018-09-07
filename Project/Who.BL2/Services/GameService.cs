@@ -34,7 +34,7 @@ namespace Who.BL.Services
         {
             GameEntity lastGame = _gameRepository.GetAll().OrderByDescending(x => x.StartDate).FirstOrDefault(x => x.UserId == userId);
 
-            if (null!= lastGame && MayTheGameHaveMoreRounds(lastGame.Id))
+            if (null != lastGame && MayTheGameHaveMoreRounds(lastGame.Id))
             {
                 return lastGame.Id;
             }
@@ -76,7 +76,9 @@ namespace Who.BL.Services
             IEnumerable<ImageEntity> images = _imageRepository.GetAll();
             Round round = new Round
             {
-                Images = new List<Image>()
+                Images = new List<Image>(),
+                AmountOfRoundsPlayed = _roundRepository.GetAll().Where(x => x.GameId == gameId).Count(), //TODO: include,
+                TotalRounds = ROUNDS_PER_GAME
             };
 
             var rand = new Random();
@@ -104,6 +106,9 @@ namespace Who.BL.Services
             for (int i = 1; i < IMAGES_PER_ROUND; i++)
             {
                 image = images.ElementAt(rand.Next(images.Count()));
+                //Check if image already in ImagesInRound
+
+                //Add image
                 round.Images.Add(new Image
                 {
                     Id = image.Id,
@@ -183,7 +188,7 @@ namespace Who.BL.Services
             roundInfo.GuessedImageId = roundEntity.GuessedImageId.Value;
             roundInfo.Name = _imageRepository.Get(roundEntity.CorrectImageId).Name; //TODO include
             roundInfo.Images = imageInRoundEntity.Select(x => new Image { Id = x.Id, Url = _imageRepository.Get(x.ImageId).Url }).ToList();
-            roundInfo.AmountOfRoundsPlayed = _roundRepository.GetAll().Where(x=>x.GameId == roundEntity.GameId).Count(); //TODO: include
+            roundInfo.AmountOfRoundsPlayed = _roundRepository.GetAll().Where(x => x.GameId == roundEntity.GameId).Count(); //TODO: include
             roundInfo.TotalRounds = ROUNDS_PER_GAME;
 
             return roundInfo;
