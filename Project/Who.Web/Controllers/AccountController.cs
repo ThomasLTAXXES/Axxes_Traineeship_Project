@@ -36,7 +36,7 @@ namespace Who.Web.Controllers
             }
         }
 
-        [Authorize]
+        [AuthorizeAttributeUnauthorizedRedirect]
         public void Test()
         {
             var user = User.Identity.Name;
@@ -67,22 +67,11 @@ namespace Who.Web.Controllers
             return "";
         }
 
-        /* private ApplicationUser GetCurrentUser(ApplicationDbContext context)
-          {
-              var identity = User.Identity as ClaimsIdentity;
-              Claim identityClaim = identity.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
-
-              return context.Users.FirstOrDefault(u => u.Id == identityClaim.Value);
-          }*/
-
         /// <summary>
         /// Send an OpenID Connect sign-out request.
         /// </summary>
         public void SignOut()
         {
-            /* HttpContext.GetOwinContext().Authentication.SignOut(
-                     OpenIdConnectAuthenticationDefaults.AuthenticationType,
-                     CookieAuthenticationDefaults.AuthenticationType);*/
             string callbackUrl = Url.Action("SignOutCallback", "Account", routeValues: null, protocol: Request.Url.Scheme);
 
             HttpContext.GetOwinContext().Authentication.SignOut(

@@ -6,7 +6,7 @@ using Who.Web.Models;
 
 namespace Who.Web.Controllers
 {
-    [Authorize]
+    [AuthorizeAttributeUnauthorizedRedirect]
     public class RoundController : BaseController
     {
         private IGameService _gameService;

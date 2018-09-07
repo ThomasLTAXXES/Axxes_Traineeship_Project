@@ -8,7 +8,7 @@ using Who.Web.Models;
 
 namespace Who.Web.Controllers
 {
-    [Authorize]
+    [AuthorizeAttributeUnauthorizedRedirect]
     public class GameController : BaseController
     {
         private IGameService _gameService;
