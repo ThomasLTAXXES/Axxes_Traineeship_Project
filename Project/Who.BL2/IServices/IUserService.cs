@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Who.Data;
+﻿using Who.Data;
 
 namespace Who.BL.IServices
 {
     public interface IUserService
     {
-        UserEntity Register(UserEntity user);
+        int Register(string userName, string tenantId);
 
-        bool Login(string userName, string password);
-
-        void Logout(string userName);
+        int GetUser(string tenantId);
     }
 }

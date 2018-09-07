@@ -9,8 +9,9 @@ namespace Who.DAL.DatabaseInitialize
         {
             context.Users.Add(new UserEntity
             {
-                FirstName = "Tester",
-                LastName = "Demo"
+                /*FirstName = "Tester",
+                LastName = "Demo"*/
+                FullName=""
             });
             context.Images.Add(new ImageEntity { Name = "Henry Cavill", Url = "https://jnsntraineeship2018.blob.core.windows.net/whoiswho/pictures/cf5822bd-80e2-44be-8720-5b15ce963bbf.jpg" });
             context.Images.Add(new ImageEntity { Name = "Alexandra Daddario", Url = "https://jnsntraineeship2018.blob.core.windows.net/whoiswho/pictures/4976a068-d8f9-44ed-98a6-cc880f6be058.jpg" });

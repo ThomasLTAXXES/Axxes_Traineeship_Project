@@ -31,6 +31,8 @@ namespace Who.Web
             builder.RegisterType(typeof(Repository<RoundEntity>)).As(typeof(IRepository<RoundEntity>));
             builder.RegisterType(typeof(Repository<ImageInRoundEntity>)).As(typeof(IRepository<ImageInRoundEntity>));
             builder.RegisterType(typeof(Repository<MetaDataEntity>)).As(typeof(IRepository<MetaDataEntity>));
+
+            builder.RegisterType(typeof(UserService)).As(typeof(IUserService));
             builder.RegisterType(typeof(GameService)).As(typeof(IGameService));
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             Container = builder.Build(); 

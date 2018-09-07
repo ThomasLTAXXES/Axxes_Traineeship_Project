@@ -4,7 +4,8 @@ using Who.Web.Models;
 
 namespace Who.Web.Controllers
 {
-    public class GameController : Controller
+    [Authorize]
+    public class GameController : BaseController
     {
         private IGameService _gameService;
 
@@ -16,7 +17,7 @@ namespace Who.Web.Controllers
 
         public ActionResult Index()
         {
-            int gameId = _gameService.StartGame(1);
+            int gameId = _gameService.StartGame(GetUserIdFromSessionStorage());
             return View(new GameViewModel { AmountOfRoundsPlayed = _gameService.RoundsPlayedInGame(gameId), TotalRounds = _gameService.GetRoundsPerGame(), Id = gameId });
         }
     }

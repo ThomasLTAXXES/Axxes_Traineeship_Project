@@ -6,7 +6,8 @@ using Who.Web.Models;
 
 namespace Who.Web.Controllers
 {
-    public class RoundController : Controller
+    [Authorize]
+    public class RoundController : BaseController
     {
         private IGameService _gameService;
 
@@ -29,8 +30,8 @@ namespace Who.Web.Controllers
 
         public ActionResult Guess(int id)
         {
-            _gameService.AnswerRound(id, 1);
-            RoundInfo roundInfo = _gameService.GetLatestRoundInfo(1);
+            _gameService.AnswerRound(id, GetUserIdFromSessionStorage());
+            RoundInfo roundInfo = _gameService.GetLatestRoundInfo(GetUserIdFromSessionStorage());
             return View("RoundAnswered", new RoundAnsweredViewModel
             {
                 AmountOfRoundsPlayed = roundInfo.AmountOfRoundsPlayed,
