@@ -17,9 +17,10 @@ namespace Who.Web.Controllers
         }
 
         // GET: Round
-        public ActionResult Play(int id)
+        public ActionResult Play(int id) //TODO: remove
         {
-            Round currentRound = _gameService.StartRound(id);
+            int gameId = _gameService.StartGame(GetUserIdFromSessionStorage());
+            Round currentRound = _gameService.StartRound(gameId);
             RoundViewModel roundViewModel = new RoundViewModel
             {
                 Images = currentRound.Images.Select(i => new ImageViewModel { Url = i.Url, Id = i.Id }).ToList(),

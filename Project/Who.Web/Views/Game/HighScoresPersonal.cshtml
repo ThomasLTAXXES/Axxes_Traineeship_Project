@@ -4,19 +4,10 @@
     ViewBag.Title = "HighScoresPersonal";
 }
 
-<h2>HighScoresPersonal</h2>
-
-<div>
-    <h4>PersonalScoreViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Rank)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Rank)
-        </dd>
-
-    </dl>
+<div class="row">
+    <div class="col-xs-12 text-center">
+        <h3>Rank #@Model.Rank</h3>
+        <h6>New Score</h6>
+        <h6>Previous Top Score</h6>
+    </div>
 </div>

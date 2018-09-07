@@ -6,6 +6,7 @@ using Who.BL.IRepositories;
 using Who.BL.IServices;
 using Who.Data;
 using Who.Data.Results;
+using Who.Utils;
 
 namespace Who.BL.Services
 {
@@ -135,7 +136,7 @@ namespace Who.BL.Services
             }
 
             // Randomize the order (otherwise #1 would always be the correct answer)
-            // round.Images.Shuffle();//commented this out to make it easier to test
+            round.Images = round.Images.Shuffle().ToList();
 
 
             game.Rounds.Add(roundEntity);

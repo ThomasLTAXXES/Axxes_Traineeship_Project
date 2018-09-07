@@ -48,5 +48,10 @@
         }
 </div>
 <script>
-    setTimeout(function () {window.location.replace('@Url.Action("Play", "Round", new { id = Model.GameId })')}, 3000);
+    @if (Model.AmountOfRoundsPlayed == Model.TotalRounds) {
+        @:setTimeout(function () { window.location.replace('@Url.Action("HighScoresPersonal", "Game")') }, 3000);
+    }
+    else {
+        @:setTimeout(function() { window.location.replace('@Url.Action("Play", "Round", new { id = Model.GameId })')}, 3000);
+    }
 </script>
