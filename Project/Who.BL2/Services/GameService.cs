@@ -103,20 +103,25 @@ namespace Who.BL.Services
 
             round.Name = image.Name;
 
-            for (int i = 1; i < IMAGES_PER_ROUND; i++)
+            for (int i = roundEntity.ImagesInRound.Count; i < IMAGES_PER_ROUND; i++)
             {
-                image = images.ElementAt(rand.Next(images.Count()));
-                //Check if image already in ImagesInRound
-
-                //Add image
-                round.Images.Add(new Image
+                bool alreadyInList = false;
+                while (!alreadyInList)
                 {
-                    Id = image.Id,
-                    Url = image.Url
-                });
-                ImageInRoundEntity imageInRoundEntity = new ImageInRoundEntity { ImageId = image.Id, RoundId = roundEntity.Id };
-                roundEntity.ImagesInRound.Add(imageInRoundEntity);
-                _imageInRoundRepository.Create(imageInRoundEntity);
+                    image = images.ElementAt(rand.Next(images.Count()));
+                    if (!roundEntity.ImagesInRound.Any(iir=>iir.Id == image.Id))
+                    {
+                        round.Images.Add(new Image
+                        {
+                            Id = image.Id,
+                            Url = image.Url
+                        });
+                        ImageInRoundEntity imageInRoundEntity = new ImageInRoundEntity { ImageId = image.Id, RoundId = roundEntity.Id };
+                        roundEntity.ImagesInRound.Add(imageInRoundEntity);
+                        _imageInRoundRepository.Create(imageInRoundEntity);
+                        alreadyInList = true;
+                    }
+                }
             }
 
             if (game.Rounds == null)
