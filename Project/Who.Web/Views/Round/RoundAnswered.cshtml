@@ -4,41 +4,48 @@
     ViewBag.Title = "RoundAnswered";
 }
 
-<h2>RoundAnswered</h2>
+<div class="row">
+    <div class="col-xs-6 text-center">
+        <h5>WHO'S</h5>
+        <h3>@Model.Name</h3>
+    </div>
+    <div class="col-xs-6 text-center">
+        <h5>@Model.AmountOfRoundsPlayed / @Model.TotalRounds</h5>
+    </div>
+</div>
+<div class="row">
+    @for (int i = 0; i < Model.Images.Count; i++)
+    {
+        if (i % 2 == 0)
+        {
+            @:<div class="col-xs-6 col-sm-offset-3 col-sm-3">
+            }
+            else
+            {
+                @:<div class="col-xs-6 col-sm-3">
+                }
 
-<div>
-    <h4>RoundViewModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.GuessedImageId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GuessedImageId)
-        </dd>
-
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CorrectImageId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CorrectImageId)
-        </dd>
-
-    </dl>
+                if (Model.Images[i].Id == Model.CorrectImageId)
+                {
+                      <figure class="border-success">
+                          <img class="img-responsive img-game" src=@Model.Images[i].Url alt="CorrectImage">
+                      </figure>
+                    
+                }
+                else if (Model.Images[i].Id == Model.GuessedImageId)
+                {
+                    <figure class="border-danger">
+                        <img class="img-responsive img-game img-ignore" src=@Model.Images[i].Url alt="WrongImage">
+                    </figure>
+                }
+                else
+                {
+                    <figure>
+                        <img class="img-responsive img-game img-ignore" src=@Model.Images[i].Url alt="WrongImage">
+                    </figure>
+                }
+            @:</div>
+        }
 </div>
 <p>
     @Html.ActionLink(linkText: "Next round", actionName: "Index", controllerName: "Game", routeValues: null, htmlAttributes: null)

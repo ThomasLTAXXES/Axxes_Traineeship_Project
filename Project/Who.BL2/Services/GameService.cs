@@ -99,6 +99,7 @@ namespace Who.BL.Services
             _roundRepository.Create(roundEntity);
             roundEntity.ImagesInRound = new List<ImageInRoundEntity>();
             ImageInRoundEntity imageInRoundEntityCorrect = new ImageInRoundEntity { ImageId = image.Id, RoundId = roundEntity.Id };
+            roundEntity.ImagesInRound.Add(imageInRoundEntityCorrect);
             _imageInRoundRepository.Create(imageInRoundEntityCorrect);
 
             round.Name = image.Name;
@@ -192,7 +193,7 @@ namespace Who.BL.Services
             roundInfo.CorrectImageId = roundEntity.CorrectImageId;
             roundInfo.GuessedImageId = roundEntity.GuessedImageId.Value;
             roundInfo.Name = _imageRepository.Get(roundEntity.CorrectImageId).Name; //TODO include
-            roundInfo.Images = imageInRoundEntity.Select(x => new Image { Id = x.Id, Url = _imageRepository.Get(x.ImageId).Url }).ToList();
+            roundInfo.Images = imageInRoundEntity.Select(x => new Image { Id = x.ImageId, Url = _imageRepository.Get(x.ImageId).Url }).ToList();
             roundInfo.AmountOfRoundsPlayed = _roundRepository.GetAll().Where(x => x.GameId == roundEntity.GameId).Count(); //TODO: include
             roundInfo.TotalRounds = ROUNDS_PER_GAME;
 
