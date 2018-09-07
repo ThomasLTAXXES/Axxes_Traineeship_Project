@@ -116,7 +116,7 @@ namespace Who.BL.Services
                 while (!alreadyInList)
                 {
                     image = images.ElementAt(rand.Next(images.Count()));
-                    if (!roundEntity.ImagesInRound.Any(iir => iir.Id == image.Id))
+                    if (!roundEntity.ImagesInRound.Any(iir => iir.ImageId == image.Id))
                     {
                         round.Images.Add(new Image
                         {
