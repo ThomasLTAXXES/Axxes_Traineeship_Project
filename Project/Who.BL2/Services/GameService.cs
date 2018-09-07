@@ -6,6 +6,7 @@ using Who.BL.IRepositories;
 using Who.BL.IServices;
 using Who.Data;
 using Who.Data.Results;
+using Who.Utils;
 
 namespace Who.BL.Services
 {
@@ -100,10 +101,12 @@ namespace Who.BL.Services
                 GameId = gameId,
                 CorrectImageId = image.Id
             };
+            List<ImageInRoundEntity> imageInRoundEntitiesToSave = new List<ImageInRoundEntity>(IMAGES_PER_ROUND);
+            
             _roundRepository.Create(roundEntity);
             roundEntity.ImagesInRound = new List<ImageInRoundEntity>();
             ImageInRoundEntity imageInRoundEntityCorrect = new ImageInRoundEntity { ImageId = image.Id, RoundId = roundEntity.Id };
-            _imageInRoundRepository.Create(imageInRoundEntityCorrect);
+            imageInRoundEntitiesToSave.Add(imageInRoundEntityCorrect);
 
             round.Name = image.Name;
 
@@ -122,7 +125,7 @@ namespace Who.BL.Services
                         });
                         ImageInRoundEntity imageInRoundEntity = new ImageInRoundEntity { ImageId = image.Id, RoundId = roundEntity.Id };
                         roundEntity.ImagesInRound.Add(imageInRoundEntity);
-                        _imageInRoundRepository.Create(imageInRoundEntity);
+                        imageInRoundEntitiesToSave.Add(imageInRoundEntity);
                         alreadyInList = true;
                     }
                 }
@@ -133,15 +136,34 @@ namespace Who.BL.Services
                 game.Rounds = new List<RoundEntity>();
             }
 
-            // Randomize the order (otherwise #1 would always be the correct answer)
-            // round.Images.Shuffle();//commented this out to make it easier to test
+            Random rng = new Random();
 
+            int n = round.Images.Count();
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                Swap(round.Images, n, k);
+                Swap(imageInRoundEntitiesToSave, n, k);
+            }
+            
+            foreach (ImageInRoundEntity imageInRoundEntityToSave in imageInRoundEntitiesToSave)
+            {
+                _imageInRoundRepository.Create(imageInRoundEntityToSave);
+            }
 
             game.Rounds.Add(roundEntity);
 
             _gameRepository.Update(game);
 
             return round;
+        }
+
+        private static void Swap<T>(List<T> list, int n, int k)
+        {
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
         }
 
         public bool AnswerRound(int answerImageId, int playerId)
