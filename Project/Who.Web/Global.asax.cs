@@ -1,23 +1,16 @@
 ﻿using Autofac;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
+using Autofac.Integration.Mvc;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Who.BL.IRepositories;
 using Who.BL.IServices;
-using Who.DAL;
+using Who.BL.Services;
+using Who.DAL.DatabaseInitialize;
+using Who.DAL.Repositories;
 using Who.DAL.Services;
 using Who.Data;
-using Who.Web.Controllers;
-using Autofac.Integration.Mvc;
-using Who.DAL.DatabaseInitialize;
-using Who.BL.Services;
-using Who.BL.IRepositories;
-using Who.DAL.Repositories;
 
 namespace Who.Web
 {
@@ -27,7 +20,8 @@ namespace Who.Web
         protected void Application_Start()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterType(typeof(Repository<UserEntity>)).As(typeof(IRepository<UserEntity>));
+            builder.RegisterType(typeof(UserRepository)).As(typeof(IRepository<UserEntity>));
+            builder.RegisterType(typeof(UserRepository)).As(typeof(IUserRepository));
             builder.RegisterType(typeof(Repository<ImageEntity>)).As(typeof(IRepository<ImageEntity>));
             builder.RegisterType(typeof(GameRepository)).As(typeof(IGameRepository));
             builder.RegisterType(typeof(Repository<RoundEntity>)).As(typeof(IRepository<RoundEntity>));
@@ -37,7 +31,7 @@ namespace Who.Web
             builder.RegisterType(typeof(UserService)).As(typeof(IUserService));
             builder.RegisterType(typeof(GameService)).As(typeof(IGameService));
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
-            Container = builder.Build(); 
+            Container = builder.Build();
 
             DependencyResolver.SetResolver(new AutofacDependencyResolver(Container));
 
@@ -47,6 +41,6 @@ namespace Who.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
-        
+
     }
 }
