@@ -35,8 +35,8 @@ namespace Who.Web.Controllers
 
             }
         }
-
-        [AuthorizeAttributeUnauthorizedRedirect]
+            //TODO: delete this
+        [AuthorizeWithUnauthorizedRedirectAttribute]
         public void Test()
         {
             var user = User.Identity.Name;
