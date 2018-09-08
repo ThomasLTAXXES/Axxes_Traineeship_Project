@@ -13,14 +13,14 @@ namespace Who.BL.Services
             _userRepository = userRepository;
         }
 
-        public int GetUser(string tenantId)
+        public int GetUser(string azureObjectIdentifier)
         {
-            return _userRepository.GetAll().FirstOrDefault(x => tenantId.Equals(x.TenantId))?.Id ?? -1;
+            return _userRepository.GetAll().FirstOrDefault(x => azureObjectIdentifier.Equals(x.AzureObjectIdentifier))?.Id ?? -1;
         }
 
-        public int Register(string userName, string tenantId)
+        public int Register(string userName, string azureObjectIdentifier)
         {
-            return _userRepository.Create(new UserEntity { FullName = userName, TenantId = tenantId }).Id;
+            return _userRepository.Create(new UserEntity { FullName = userName, AzureObjectIdentifier = azureObjectIdentifier }).Id;
         }
     }
 }

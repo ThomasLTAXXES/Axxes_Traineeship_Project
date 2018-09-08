@@ -1,4 +1,4 @@
-﻿alter procedure USP_GetHighScoresForEachPlayer
+﻿create procedure USP_GetHighScoresForEachPlayer
 @p_AmountOfRounds int,
 @p_StartDate datetime,
 @p_EndDate datetime
