@@ -73,13 +73,7 @@ namespace Who.Web.Controllers
 
         public ActionResult SignOutCallback()
         {
-            if (Request.IsAuthenticated)
-            {
-                // Redirect to home page if the user is authenticated.
                 return RedirectToAction("Index", "Home");
-            }
-
-            return View();
         }
 
         public ActionResult LogInCallback()
