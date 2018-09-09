@@ -40,11 +40,11 @@ namespace Who.DAL.Services
             }
         }
 
-        public IEnumerable<T> GetAll(IEnumerable<int> ids)
+        public Dictionary<int, T> GetAll(IEnumerable<int> ids)
         {
             using (var context = new ApplicationDbContext())
             {
-                return context.Set<T>().Where(u => ids.Contains(u.Id));
+                return context.Set<T>().Where(u => ids.Contains(u.Id)).ToDictionary(u=>u.Id, u=>u);
             }
         }
 

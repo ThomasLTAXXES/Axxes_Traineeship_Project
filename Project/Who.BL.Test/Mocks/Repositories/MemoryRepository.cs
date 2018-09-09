@@ -41,6 +41,11 @@ namespace Who.BL.Test.Mocks.Repositories
             return _entities;
         }
 
+        public Dictionary<int, T> GetAll(IEnumerable<int> ids)
+        {
+            return _entities.Where(x => ids.Contains(x.Id)).ToDictionary(x => x.Id, x => x);
+        }
+
         public T Update(T model)
         {
             // Using own indexOf method as we are doing an id-compare (PK compare) here and don't know the implementation of the Equals-method of the object
