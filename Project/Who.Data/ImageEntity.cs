@@ -10,6 +10,6 @@ namespace Who.Data
 
         public string Name { get; set; }
 
-        public ICollection<ImageInRoundEntity> Images { get; set; }
+        public virtual ICollection<ImageInRoundEntity> Images { get; set; }
     }
 }

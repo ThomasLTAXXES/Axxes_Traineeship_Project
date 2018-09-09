@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Who.BL.IServices;
 using Who.Data;
 
@@ -25,6 +22,14 @@ namespace Who.BL.Test.Mocks.Repositories
             return model;
         }
 
+        public void CreateAll(IEnumerable<T> models)
+        {
+            foreach (T model in models)
+            {
+                Create(model);
+            }
+        }
+
         public T Get(int id)
         {
             return _entities.FirstOrDefault(e => e.Id == id);
@@ -39,8 +44,8 @@ namespace Who.BL.Test.Mocks.Repositories
         public T Update(T model)
         {
             // Using own indexOf method as we are doing an id-compare (PK compare) here and don't know the implementation of the Equals-method of the object
-            int indexOfModel = IndexOf(model.Id);  
-            if(indexOfModel != -1)
+            int indexOfModel = IndexOf(model.Id);
+            if (indexOfModel != -1)
             {
                 _entities[indexOfModel] = model;
             }
@@ -49,9 +54,9 @@ namespace Who.BL.Test.Mocks.Repositories
 
         private int IndexOf(int id)
         {
-            for(int i=0; i<_entities.Count; i++)
+            for (int i = 0; i < _entities.Count; i++)
             {
-                if(_entities[i].Id == id)
+                if (_entities[i].Id == id)
                 {
                     return i;
                 }

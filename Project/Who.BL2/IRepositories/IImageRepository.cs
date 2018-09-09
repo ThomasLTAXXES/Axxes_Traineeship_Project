@@ -11,5 +11,7 @@ namespace Who.BL.IRepositories
     public interface IImageRepository : IRepository<ImageEntity>
     {
         IEnumerable<ImageEntity> Search(string name);
+
+        IEnumerable<ImageEntity> GetRandomImages(int amount);
     }
 }

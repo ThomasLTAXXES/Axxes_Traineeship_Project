@@ -15,6 +15,8 @@ namespace Who.DAL
 
         public ApplicationDbContext() : base("name=DefaultConnection")
         {
+            // In order to avoid database-round-trip-mistakes, we are forcing dev's to use ".Include" when they need a property
+            Configuration.LazyLoadingEnabled = false;
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

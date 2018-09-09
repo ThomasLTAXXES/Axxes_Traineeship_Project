@@ -25,7 +25,7 @@ namespace Who.Web
             builder.RegisterType(typeof(Repository<ImageEntity>)).As(typeof(IRepository<ImageEntity>));
             builder.RegisterType(typeof(ImageRepository)).As(typeof(IImageRepository)); 
             builder.RegisterType(typeof(GameRepository)).As(typeof(IGameRepository));
-            builder.RegisterType(typeof(Repository<RoundEntity>)).As(typeof(IRepository<RoundEntity>));
+            builder.RegisterType(typeof(RoundRepository)).As(typeof(IRoundRepository));
             builder.RegisterType(typeof(Repository<ImageInRoundEntity>)).As(typeof(IRepository<ImageInRoundEntity>));
             builder.RegisterType(typeof(Repository<MetaDataEntity>)).As(typeof(IRepository<MetaDataEntity>));
 

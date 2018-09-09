@@ -8,8 +8,8 @@ namespace Who.Data
     public class GameEntity : Entity
     {
         public int UserId { get; set; }
-        public UserEntity User { get; set; }
-        public ICollection<RoundEntity> Rounds { get; set; }
+        public virtual UserEntity User { get; set; }
+        public virtual ICollection<RoundEntity> Rounds { get; set; }
         public DateTime StartDate { get; set; }
         public TimeSpan Duration { get; set; }
     }

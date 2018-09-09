@@ -88,5 +88,13 @@ namespace Who.DAL.Repositories
                 };
             }
         }
+
+        public GameEntity GetLatestGameForUser(int userId)
+        {
+          using(var context = new ApplicationDbContext())
+            {
+                return context.Games.Where(g => g.UserId == userId).OrderByDescending(x => x.StartDate).FirstOrDefault();
+            }
+        }
     }
 }

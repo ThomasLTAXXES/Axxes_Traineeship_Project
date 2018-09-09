@@ -11,15 +11,15 @@ namespace Who.Data
 
         public int GameId { get; set; }
 
-        public ICollection<ImageInRoundEntity> ImagesInRound { get; set; }
+        public virtual ICollection<ImageInRoundEntity> ImagesInRound { get; set; }
 
         [ForeignKey(nameof(GuessedImageId))]
-        public ImageEntity GuessedImage { get; set; }
+        public virtual ImageEntity GuessedImage { get; set; }
 
         [ForeignKey(nameof(CorrectImageId))]
-        public ImageEntity CorrectImage { get; set; }
+        public virtual ImageEntity CorrectImage { get; set; }
 
         [ForeignKey(nameof(GameId))]
-        public GameEntity Game { get; set; }
+        public virtual GameEntity Game { get; set; }
     }
 }

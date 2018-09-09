@@ -41,7 +41,7 @@ namespace Who.BL.Test.Tests.Services
         [TestMethod]
         public void StartGameTest()
         {
-            int gameEntityId = _gameService.StartGame(1);
+            int gameEntityId = _gameService.StartNewGameOrGetExistingId(1);
             GameEntity gameEntity = _gameRepository.Get(gameEntityId);
             Assert.IsNotNull(gameEntity);
             Assert.IsNull(gameEntity.Rounds);
@@ -54,8 +54,8 @@ namespace Who.BL.Test.Tests.Services
         [TestMethod]
         public void StartRoundTest()
         {
-            int gameEntityId = _gameService.StartGame(1);
-            Round round = _gameService.StartRound(gameEntityId);
+            int gameEntityId = _gameService.StartNewGameOrGetExistingId(1);
+            Round round = _gameService.StartRoundOrGetExisting(gameEntityId);
             Assert.IsNotNull(round);
             Assert.IsNotNull(round.Images);
             Assert.AreEqual(4, round.Images.Count); //TODO: config
@@ -65,8 +65,8 @@ namespace Who.BL.Test.Tests.Services
         [TestMethod]
         public void AnswerRoundCorrectlyTest()
         {
-            int gameEntityId = _gameService.StartGame(1);
-            Round round = _gameService.StartRound(gameEntityId);
+            int gameEntityId = _gameService.StartNewGameOrGetExistingId(1);
+            Round round = _gameService.StartRoundOrGetExisting(gameEntityId);
             int indexOf = IndexOfCorrectImageInRound(round);
           //  bool succes = _gameService.AnswerRound(round, indexOf, gameEntityId);
        //     Assert.IsTrue(succes);
@@ -90,8 +90,8 @@ namespace Who.BL.Test.Tests.Services
         [TestMethod]
         public void AnswerRoundIncorrectlyTest()
         {
-            int gameEntityId = _gameService.StartGame(1);
-            Round round = _gameService.StartRound(gameEntityId);
+            int gameEntityId = _gameService.StartNewGameOrGetExistingId(1);
+            Round round = _gameService.StartRoundOrGetExisting(gameEntityId);
             int indexOf = IndexOfCorrectImageInRound(round);
          //   bool succes = _gameService.AnswerRound(round, (indexOf + 1) % round.Images.Count, gameEntityId);
         //    Assert.IsFalse(succes);
@@ -100,10 +100,10 @@ namespace Who.BL.Test.Tests.Services
         [TestMethod]
         public void PlayFullGameWithAllAnswersCorrectTest()
         {
-            int gameEntityId = _gameService.StartGame(1);
+            int gameEntityId = _gameService.StartNewGameOrGetExistingId(1);
             while (_gameService.MayTheGameHaveMoreRounds(gameEntityId))
             {
-                Round round = _gameService.StartRound(gameEntityId);
+                Round round = _gameService.StartRoundOrGetExisting(gameEntityId);
                 int indexOf = IndexOfCorrectImageInRound(round);
            //     _gameService.AnswerRound(round, (indexOf + 1) % round.Images.Count, gameEntityId);
             }
@@ -114,14 +114,14 @@ namespace Who.BL.Test.Tests.Services
         [TestMethod]
         public void PlayTooManyRoundsInAGameTest()
         {
-            int gameEntityId = _gameService.StartGame(1);
+            int gameEntityId = _gameService.StartNewGameOrGetExistingId(1);
             while (_gameService.MayTheGameHaveMoreRounds(gameEntityId))
             {
-                Round round = _gameService.StartRound(gameEntityId);
+                Round round = _gameService.StartRoundOrGetExisting(gameEntityId);
                 int indexOf = IndexOfCorrectImageInRound(round);
             //    _gameService.AnswerRound(round, (indexOf + 1) % round.Images.Count, gameEntityId);
             }
-            _gameService.StartRound(gameEntityId);
+            _gameService.StartRoundOrGetExisting(gameEntityId);
         }
 
         [TestMethod]
@@ -131,10 +131,10 @@ namespace Who.BL.Test.Tests.Services
             int userId = 1;
             for(int i=0; i < amountOfGames;i++)
             {
-                int gameEntityId = _gameService.StartGame(userId);
+                int gameEntityId = _gameService.StartNewGameOrGetExistingId(userId);
                 while (_gameService.MayTheGameHaveMoreRounds(gameEntityId))
                 {
-                    Round round = _gameService.StartRound(gameEntityId);
+                    Round round = _gameService.StartRoundOrGetExisting(gameEntityId);
                     int indexOf = IndexOfCorrectImageInRound(round);
            //         _gameService.AnswerRound(round, (indexOf + 1) % round.Images.Count, gameEntityId);
                 }
@@ -152,19 +152,19 @@ namespace Who.BL.Test.Tests.Services
             int userIdPlayerTwo = 2;
             for (int i = 0; i < amountOfGames; i++)
             {
-                int gameEntityId = _gameService.StartGame(userIdPlayerOne);
+                int gameEntityId = _gameService.StartNewGameOrGetExistingId(userIdPlayerOne);
                 while (_gameService.MayTheGameHaveMoreRounds(gameEntityId))
                 {
-                    Round round = _gameService.StartRound(gameEntityId);
+                    Round round = _gameService.StartRoundOrGetExisting(gameEntityId);
                     int indexOf = IndexOfCorrectImageInRound(round);
                   //  _gameService.AnswerRound(round, (indexOf + 1) % round.Images.Count, gameEntityId);
                 }
             }
 
-            int gameEntityIdOtherPlayer = _gameService.StartGame(userIdPlayerTwo);
+            int gameEntityIdOtherPlayer = _gameService.StartNewGameOrGetExistingId(userIdPlayerTwo);
             while (_gameService.MayTheGameHaveMoreRounds(gameEntityIdOtherPlayer))
             {
-                Round round = _gameService.StartRound(gameEntityIdOtherPlayer);
+                Round round = _gameService.StartRoundOrGetExisting(gameEntityIdOtherPlayer);
                 int indexOf = IndexOfCorrectImageInRound(round);
               //  _gameService.AnswerRound(round, (indexOf + 1) % round.Images.Count, gameEntityIdOtherPlayer);
             }

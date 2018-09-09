@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using Who.BL.Domain;
+using Who.BL.Factory;
 using Who.BL.IRepositories;
 using Who.BL.IServices;
 using Who.Data;
 using Who.Data.Results;
-using Who.Utils;
 
 namespace Who.BL.Services
 {
     public class GameService : IGameService
     {
         private IGameRepository _gameRepository;
-        private IRepository<ImageEntity> _imageRepository;
-        private IRepository<RoundEntity> _roundRepository;
+        private IImageRepository _imageRepository;
+        private IRoundRepository _roundRepository;
         private IRepository<ImageInRoundEntity> _imageInRoundRepository;
         private IRepository<MetaDataEntity> _metaDataRepository;
         private IRepository<UserEntity> _userRepository;
@@ -23,8 +23,8 @@ namespace Who.BL.Services
 
         public GameService(
             IGameRepository gameRepository,
-            IRepository<ImageEntity> imageRepository,
-            IRepository<RoundEntity> roundRepository,
+            IImageRepository imageRepository,
+            IRoundRepository roundRepository,
             IRepository<ImageInRoundEntity> imageInRoundRepository,
             IRepository<UserEntity> userRepository)
         {
@@ -35,22 +35,22 @@ namespace Who.BL.Services
             _userRepository = userRepository;
         }
 
-        public int StartGame(int userId)
+        private GameEntity StartNewGameOrGetExisting(int userId)
         {
-            GameEntity lastGame = _gameRepository.GetAll().OrderByDescending(x => x.StartDate).FirstOrDefault(x => x.UserId == userId);
+            GameEntity lastGame = _gameRepository.GetLatestGameForUser(userId);
 
-            if (null != lastGame && MayTheGameHaveMoreRounds(lastGame.Id))
+            // When a user never has played a game before, it'll be null
+            if (null == lastGame || !MayTheGameHaveMoreRounds(lastGame.Id))
             {
-                return lastGame.Id;
+                lastGame = GameEntityFactory.Create(userId, DateTime.Now);
+                _gameRepository.Create(lastGame);
             }
+            return lastGame;
+        }
 
-            GameEntity game = new GameEntity
-            {
-                UserId = userId,
-                StartDate = DateTime.Now
-            };
-
-            return _gameRepository.Create(game).Id;
+        public int StartNewGameOrGetExistingId(int userId)
+        {
+            return StartNewGameOrGetExisting(userId).Id;
         }
 
         public bool MayTheGameHaveMoreRounds(int gameId)
@@ -60,124 +60,46 @@ namespace Who.BL.Services
 
         public int RoundsPlayedInGame(int gameId)
         {
-            GameEntity game = _gameRepository.Get(gameId);
-            IEnumerable<RoundEntity> rounds = _roundRepository.GetAll().Where(x => x.GameId == game.Id);
-
-            return rounds == null ? 0 : rounds.Count();
+            return _roundRepository.GetAmountOfRoundsForGame(gameId);
         }
 
-        public Round StartRound(int gameId)
+        public Round StartRoundOrGetExisting(int userId)
         {
-            var game = _gameRepository.Get(gameId);
-            if (game.Rounds == null)
+            GameEntity gameEntity = StartNewGameOrGetExisting(userId);
+            RoundEntity roundEntity = _roundRepository.GetCurrentOpenRound(gameEntity.Id);
+            if (null != roundEntity)
             {
-                game.Rounds = new List<RoundEntity>();
+                // Unfinished round
+                return RoundEntityFactory.Create(roundEntity, ROUNDS_PER_GAME, RoundsPlayedInGame(gameEntity.Id));
             }
-            else if (game.Rounds.Count >= ROUNDS_PER_GAME)
-            {
-                // TODO: think about custom exceptions
-                throw new Exception("You can't create any more rounds for this game");
-            }
-            IEnumerable<ImageEntity> images = _imageRepository.GetAll();
-            Round round = new Round
-            {
-                Images = new List<Image>(),
-                AmountOfRoundsPlayed = _roundRepository.GetAll().Where(x => x.GameId == gameId).Count(), //TODO: include,
-                TotalRounds = ROUNDS_PER_GAME
-            };
+            roundEntity = RoundEntityFactory.Create(gameEntity.Id);
 
-            var rand = new Random();
+            // Determine the correct one
+            var randomImages = _imageRepository.GetRandomImages(IMAGES_PER_ROUND);
+            int indexOfCorrectImageInList = (new Random()).Next(IMAGES_PER_ROUND);
+            var correctImage = randomImages.ElementAt(indexOfCorrectImageInList);
 
-            // Add correct one
-            var image = images.ElementAt(rand.Next(images.Count()));
-            round.Images.Add(new Image
-            {
-                Url = image.Url,
-                Id = image.Id
-            });
+            Round round = RoundFactory.Create(new List<Image>(), RoundsPlayedInGame(gameEntity.Id), ROUNDS_PER_GAME, correctImage.Name);
 
-            RoundEntity roundEntity = new RoundEntity
-            {
-                GameId = gameId,
-                CorrectImageId = image.Id
-            };
-            List<ImageInRoundEntity> imageInRoundEntitiesToSave = new List<ImageInRoundEntity>(IMAGES_PER_ROUND);
+            roundEntity.CorrectImageId = correctImage.Id;
             _roundRepository.Create(roundEntity);
-            roundEntity.ImagesInRound = new List<ImageInRoundEntity>();
-            ImageInRoundEntity imageInRoundEntityCorrect = new ImageInRoundEntity { ImageId = image.Id, RoundId = roundEntity.Id };
-            imageInRoundEntitiesToSave.Add(imageInRoundEntityCorrect);
-            roundEntity.ImagesInRound.Add(imageInRoundEntityCorrect);
 
-            round.Name = image.Name;
-
-            for (int i = roundEntity.ImagesInRound.Count; i < IMAGES_PER_ROUND; i++)
+            foreach (ImageEntity imageEntity in randomImages)
             {
-                bool alreadyInList = false;
-                while (!alreadyInList)
-                {
-                    image = images.ElementAt(rand.Next(images.Count()));
-                    if (!roundEntity.ImagesInRound.Any(iir => iir.ImageId == image.Id))
-                    {
-                        round.Images.Add(new Image
-                        {
-                            Id = image.Id,
-                            Url = image.Url
-                        });
-                        ImageInRoundEntity imageInRoundEntity = new ImageInRoundEntity { ImageId = image.Id, RoundId = roundEntity.Id };
-                        roundEntity.ImagesInRound.Add(imageInRoundEntity);
-                        imageInRoundEntitiesToSave.Add(imageInRoundEntity);
-                        alreadyInList = true;
-                    }
-                }
+                ImageInRoundEntity imageInRoundEntity = ImageInRoundEntityFactory.Create(imageEntity.Id, roundEntity.Id);
+                _imageInRoundRepository.Create(imageInRoundEntity);
+                round.Images.Add(ImageFactory.Create(imageEntity.Url, imageEntity.Id));
             }
-
-            if (game.Rounds == null)
-            {
-                game.Rounds = new List<RoundEntity>();
-            }
-
-            Random rng = new Random();
-
-            int n = round.Images.Count();
-            while (n > 1)
-            {
-                n--;
-                int k = rng.Next(n + 1);
-                Swap(round.Images, n, k);
-                Swap(imageInRoundEntitiesToSave, n, k);
-            }
-            
-            foreach (ImageInRoundEntity imageInRoundEntityToSave in imageInRoundEntitiesToSave)
-            {
-                _imageInRoundRepository.Create(imageInRoundEntityToSave);
-            }
-
-            game.Rounds.Add(roundEntity);
-
-            _gameRepository.Update(game);
 
             return round;
         }
 
-        private static void Swap<T>(List<T> list, int n, int k)
+        public bool AnswerRound(int answerImageId, int userId)
         {
-            T value = list[k];
-            list[k] = list[n];
-            list[n] = value;
-        }
-
-        public bool AnswerRound(int answerImageId, int playerId)
-        {
-            GameEntity currentGameForPlayer = _gameRepository
-                 .GetAll()
-                 .Where(x => x.UserId == playerId)
-                 .OrderByDescending(x => x.StartDate)
-                 .FirstOrDefault();
+            GameEntity currentGameForPlayer = _gameRepository.GetLatestGameForUser(userId);
 
             // id should be replaced with start date
-            RoundEntity currentRound = _roundRepository.GetAll()
-                .Where(x => x.GameId == currentGameForPlayer.Id)
-                .OrderByDescending(x => x.Id).FirstOrDefault();
+            RoundEntity currentRound = _roundRepository.GetCurrentOpenRound(currentGameForPlayer.Id);
 
             ImageEntity answerImage = _imageRepository.Get(answerImageId);
 
@@ -194,45 +116,36 @@ namespace Who.BL.Services
         public IEnumerable<Score> GetHighScoresForAllPlayers(DateTime startDate, DateTime endDate)
         {
             GetHighScoresForAllPlayersResult dbResult = _gameRepository.GetHighScoresForAllPlayers(ROUNDS_PER_GAME, startDate, endDate);
-
-            return dbResult.Results.Select(r =>
-             new Score
-             {
-                 AmountOfCorrectAnswers = r.AmountOfCorrectAnswers,
-                 Duration = r.Duration,
-                 AmountOfGamesPlayed = r.AmountOfGamesPlayed,
-                 AmountOfRoundsPerGame = r.AmountOfRoundsPerGame,
-                 FullName = _userRepository.Get(r.UserId).FullName
-             }).OrderBy(x => x.AmountOfCorrectAnswers).ThenBy(x => x.Duration).ToList();
+            // One extra database round trip to get all user names... on second thought, this should've been in the USP
+            Dictionary<int, UserEntity> userIds = _userRepository.GetAll(dbResult.Results.Select(r => r.UserId));
+            return dbResult.Results
+                .Select(r => ScoreFactory.Create(r,userIds))
+                .OrderBy(x => x.AmountOfCorrectAnswers)
+                .ThenBy(x => x.Duration).ToList();
         }
 
         public PersonalScore GetCurrentScorePreviousScoreAndRank(int userId, DateTime startDate, DateTime endDate)
         {
             PersonalScore personalScore = new PersonalScore();
             List<GetHighScoresForAllPlayersResultItem> dbResult = _gameRepository.GetHighScoresForAllPlayers(ROUNDS_PER_GAME, startDate, endDate).Results.OrderBy(x => x.AmountOfCorrectAnswers).ThenBy(x => x.Duration).ToList();
+            // Set the rank
             for (int i = 0; i < dbResult.Count(); i++)
             {
                 if (userId == dbResult[i].UserId)
                 {
-                    personalScore.Rank = i +1;
+                    personalScore.Rank = i + 1; // 0 indexed but our ranks start at 1
                     break;
                 }
             }
 
             GetHighScoresForIndividualPlayerResult highScoresIndividualResult = _gameRepository.GetHighScoresForIndividualPlayer(ROUNDS_PER_GAME, startDate, endDate, userId);
-            personalScore.PersonalScoreItems = highScoresIndividualResult.Results
-                .Select(r => new PersonalScoreItem
-                {
-                    AmountOfCorrectAnswers = r.AmountOfCorrectAnswers,
-                    AmountOfRoundsPerGame = r.AmountOfRoundsPerGame,
-                    Duration = r.Duration
-                });
+            personalScore.PersonalScoreItems = highScoresIndividualResult.Results.Select(PersonalScoreItemFactory.Create);
 
             return personalScore;
         }
 
         public RoundInfo GetRoundInfo(int roundId)
-        {
+        {//TODO optimize
             RoundInfo roundInfo = new RoundInfo();
 
             RoundEntity roundEntity = _roundRepository.Get(roundId);
@@ -240,17 +153,17 @@ namespace Who.BL.Services
             roundInfo.GameId = roundEntity.GameId;
             roundInfo.CorrectImageId = roundEntity.CorrectImageId;
             roundInfo.GuessedImageId = roundEntity.GuessedImageId.Value;
-            roundInfo.Name = _imageRepository.Get(roundEntity.CorrectImageId).Name; //TODO include
+            roundInfo.Name = _imageRepository.Get(roundEntity.CorrectImageId).Name; 
             roundInfo.Images = imageInRoundEntity.Select(x => new Image { Id = x.ImageId, Url = _imageRepository.Get(x.ImageId).Url }).ToList();
-            roundInfo.AmountOfRoundsPlayed = _roundRepository.GetAll().Where(x => x.GameId == roundEntity.GameId).Count(); //TODO: include
+            roundInfo.AmountOfRoundsPlayed = RoundsPlayedInGame(roundEntity.GameId);
             roundInfo.TotalRounds = ROUNDS_PER_GAME;
 
             return roundInfo;
         }
 
         public RoundInfo GetLatestRoundInfo(int userId)
-        {
-            GameEntity lastGame = _gameRepository.GetAll().Where(x => x.UserId == userId).OrderByDescending(x => x.StartDate).FirstOrDefault();
+        {//TODO optimize
+            GameEntity lastGame = _gameRepository.GetLatestGameForUser(userId);
             RoundEntity lastRound = _roundRepository.GetAll().Where(x => x.GameId == lastGame.Id).OrderByDescending(x => x.Id).FirstOrDefault();
 
             return GetRoundInfo(lastRound.Id);

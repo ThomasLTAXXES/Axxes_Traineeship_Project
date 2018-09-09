@@ -21,10 +21,30 @@ namespace Who.DAL.Services
             return model;
         }
 
+        public void CreateAll(IEnumerable<T> models)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                foreach(T model in models)
+                {
+                    context.Set<T>().Add(model);
+                }
+                context.SaveChanges();
+            }
+        }
+
         public T Get(int id)
         {
             using (var context = new ApplicationDbContext()) {
                 return context.Set<T>().FirstOrDefault(u => u.Id == id);
+            }
+        }
+
+        public IEnumerable<T> GetAll(IEnumerable<int> ids)
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                return context.Set<T>().Where(u => ids.Contains(u.Id));
             }
         }
 
