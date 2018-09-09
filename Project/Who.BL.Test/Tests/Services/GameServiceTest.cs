@@ -2,8 +2,8 @@
 using System;
 using System.Linq;
 using Who.BL.Domain;
+using Who.BL.IRepositories;
 using Who.BL.IServices;
-using Who.BL.Services;
 using Who.BL.Test.Mocks.Repositories;
 using Who.Data;
 
@@ -26,7 +26,7 @@ namespace Who.BL.Test.Tests.Services
             {
                 _imageRepository.Create(CreateNewImageWithDefaults(_imageRepository.GetAll()?.LastOrDefault()?.Id ?? 1));
             }
-          //  _gameService = new GameService(_gameRepository, _imageRepository);
+            //  _gameService = new GameService(_gameRepository, _imageRepository);
         }
 
         private ImageEntity CreateNewImageWithDefaults(int id)
@@ -68,8 +68,8 @@ namespace Who.BL.Test.Tests.Services
             int gameEntityId = _gameService.StartNewGameOrGetExistingId(1);
             Round round = _gameService.StartRoundOrGetExisting(gameEntityId);
             int indexOf = IndexOfCorrectImageInRound(round);
-          //  bool succes = _gameService.AnswerRound(round, indexOf, gameEntityId);
-       //     Assert.IsTrue(succes);
+            //  bool succes = _gameService.AnswerRound(round, indexOf, gameEntityId);
+            //     Assert.IsTrue(succes);
         }
 
         private int IndexOfCorrectImageInRound(Round round)
@@ -93,8 +93,8 @@ namespace Who.BL.Test.Tests.Services
             int gameEntityId = _gameService.StartNewGameOrGetExistingId(1);
             Round round = _gameService.StartRoundOrGetExisting(gameEntityId);
             int indexOf = IndexOfCorrectImageInRound(round);
-         //   bool succes = _gameService.AnswerRound(round, (indexOf + 1) % round.Images.Count, gameEntityId);
-        //    Assert.IsFalse(succes);
+            //   bool succes = _gameService.AnswerRound(round, (indexOf + 1) % round.Images.Count, gameEntityId);
+            //    Assert.IsFalse(succes);
         }
 
         [TestMethod]
@@ -105,7 +105,7 @@ namespace Who.BL.Test.Tests.Services
             {
                 Round round = _gameService.StartRoundOrGetExisting(gameEntityId);
                 int indexOf = IndexOfCorrectImageInRound(round);
-           //     _gameService.AnswerRound(round, (indexOf + 1) % round.Images.Count, gameEntityId);
+                //     _gameService.AnswerRound(round, (indexOf + 1) % round.Images.Count, gameEntityId);
             }
             //TODO: score testing
         }
@@ -119,7 +119,7 @@ namespace Who.BL.Test.Tests.Services
             {
                 Round round = _gameService.StartRoundOrGetExisting(gameEntityId);
                 int indexOf = IndexOfCorrectImageInRound(round);
-            //    _gameService.AnswerRound(round, (indexOf + 1) % round.Images.Count, gameEntityId);
+                //    _gameService.AnswerRound(round, (indexOf + 1) % round.Images.Count, gameEntityId);
             }
             _gameService.StartRoundOrGetExisting(gameEntityId);
         }
@@ -129,19 +129,19 @@ namespace Who.BL.Test.Tests.Services
         {
             int amountOfGames = 5;
             int userId = 1;
-            for(int i=0; i < amountOfGames;i++)
+            for (int i = 0; i < amountOfGames; i++)
             {
                 int gameEntityId = _gameService.StartNewGameOrGetExistingId(userId);
                 while (_gameService.MayTheGameHaveMoreRounds(gameEntityId))
                 {
                     Round round = _gameService.StartRoundOrGetExisting(gameEntityId);
                     int indexOf = IndexOfCorrectImageInRound(round);
-           //         _gameService.AnswerRound(round, (indexOf + 1) % round.Images.Count, gameEntityId);
+                    //         _gameService.AnswerRound(round, (indexOf + 1) % round.Images.Count, gameEntityId);
                 }
             }
 
-         //   Assert.AreEqual(amountOfGames, 
-           //     _gameService.GetAllGamesForPlayer(userId, DateTime.MinValue, DateTime.MaxValue).Count());
+            //   Assert.AreEqual(amountOfGames, 
+            //     _gameService.GetAllGamesForPlayer(userId, DateTime.MinValue, DateTime.MaxValue).Count());
         }
 
         [TestMethod]
@@ -157,7 +157,7 @@ namespace Who.BL.Test.Tests.Services
                 {
                     Round round = _gameService.StartRoundOrGetExisting(gameEntityId);
                     int indexOf = IndexOfCorrectImageInRound(round);
-                  //  _gameService.AnswerRound(round, (indexOf + 1) % round.Images.Count, gameEntityId);
+                    //  _gameService.AnswerRound(round, (indexOf + 1) % round.Images.Count, gameEntityId);
                 }
             }
 
@@ -166,14 +166,14 @@ namespace Who.BL.Test.Tests.Services
             {
                 Round round = _gameService.StartRoundOrGetExisting(gameEntityIdOtherPlayer);
                 int indexOf = IndexOfCorrectImageInRound(round);
-              //  _gameService.AnswerRound(round, (indexOf + 1) % round.Images.Count, gameEntityIdOtherPlayer);
+                //  _gameService.AnswerRound(round, (indexOf + 1) % round.Images.Count, gameEntityIdOtherPlayer);
             }
 
-       //     Assert.AreEqual(amountOfGames,
-        //        _gameService.GetAllGamesForPlayer(userIdPlayerOne, DateTime.MinValue, DateTime.MaxValue).Count());
+            //     Assert.AreEqual(amountOfGames,
+            //        _gameService.GetAllGamesForPlayer(userIdPlayerOne, DateTime.MinValue, DateTime.MaxValue).Count());
 
-          //  Assert.AreEqual(1,
-           //   _gameService.GetAllGamesForPlayer(userIdPlayerTwo, DateTime.MinValue, DateTime.MaxValue).Count());
+            //  Assert.AreEqual(1,
+            //   _gameService.GetAllGamesForPlayer(userIdPlayerTwo, DateTime.MinValue, DateTime.MaxValue).Count());
         }
 
     }

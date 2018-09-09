@@ -3,7 +3,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Who.BL.IRepositories;
-using Who.DAL.Services;
 using Who.Data;
 using Who.Data.Results;
 

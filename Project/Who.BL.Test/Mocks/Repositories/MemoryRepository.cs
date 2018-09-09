@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Who.BL.IServices;
+using Who.BL.IRepositories;
 using Who.Data;
 
 namespace Who.BL.Test.Mocks.Repositories

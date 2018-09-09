@@ -1,8 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Who.BL.IRepositories;
-using Who.DAL.Services;
 using Who.Data;
 
 namespace Who.DAL.Repositories

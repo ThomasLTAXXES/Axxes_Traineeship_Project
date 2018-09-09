@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Who.BL.IRepositories;
-using Who.DAL.Services;
 using Who.Data;
 using System.Data.Entity;
 

@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="IRepositories\IGameRepository.cs" />
     <Compile Include="IRepositories\IImageRepository.cs" />
+    <Compile Include="IRepositories\IMetaDataRepository.cs" />
     <Compile Include="IRepositories\IRepository.cs" />
     <Compile Include="IRepositories\IRoundRepository.cs" />
     <Compile Include="IRepositories\IUserRepository.cs" />

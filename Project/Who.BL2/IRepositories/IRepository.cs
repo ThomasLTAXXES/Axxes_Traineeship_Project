@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Who.BL.IServices
+namespace Who.BL.IRepositories
 {
     public interface IRepository<T>
     {

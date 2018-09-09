@@ -6,6 +6,7 @@ using Who.BL.Factory;
 using Who.BL.IRepositories;
 using Who.BL.IServices;
 using Who.Data;
+using Who.Data.Enums;
 using Who.Data.Results;
 
 namespace Who.BL.Services
@@ -16,23 +17,27 @@ namespace Who.BL.Services
         private IImageRepository _imageRepository;
         private IRoundRepository _roundRepository;
         private IRepository<ImageInRoundEntity> _imageInRoundRepository;
-        private IRepository<MetaDataEntity> _metaDataRepository;
+        private IMetaDataRepository _metaDataRepository;
         private IRepository<UserEntity> _userRepository;
-        private const int IMAGES_PER_ROUND = 4; //TODO: move to config or db
-        public const int ROUNDS_PER_GAME = 5;//TODO: move to config or db (should be 20 but testing)
+        private readonly int IMAGES_PER_ROUND; 
+        public readonly int ROUNDS_PER_GAME;
 
         public GameService(
             IGameRepository gameRepository,
             IImageRepository imageRepository,
             IRoundRepository roundRepository,
             IRepository<ImageInRoundEntity> imageInRoundRepository,
-            IRepository<UserEntity> userRepository)
+            IRepository<UserEntity> userRepository,
+            IMetaDataRepository metaDataRepository)
         {
             _gameRepository = gameRepository;
             _imageRepository = imageRepository;
             _roundRepository = roundRepository;
             _imageInRoundRepository = imageInRoundRepository;
             _userRepository = userRepository;
+            _metaDataRepository = metaDataRepository;
+            IMAGES_PER_ROUND = _metaDataRepository.GetByName<int>(MetaDataEnum.ImagesPerRound);
+            ROUNDS_PER_GAME = _metaDataRepository.GetByName<int>(MetaDataEnum.RoundsPerGame);
         }
 
         private GameEntity StartNewGameOrGetExisting(int userId)
@@ -171,7 +176,7 @@ namespace Who.BL.Services
 
         public int GetRoundsPerGame()
         {
-            return ROUNDS_PER_GAME;// metaDataRepository.;
+            return ROUNDS_PER_GAME;
         }
     }
 }
