@@ -5,6 +5,7 @@ using Who.Web.Models;
 
 namespace Who.Web.Controllers
 {
+    [AuthorizeWithUnauthorizedRedirectAttribute]
     public class ImageController : BaseController
     {
         private IImageService _imageService;
