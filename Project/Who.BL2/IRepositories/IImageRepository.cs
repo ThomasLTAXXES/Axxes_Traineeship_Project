@@ -12,6 +12,6 @@ namespace Who.BL.IRepositories
     {
         IEnumerable<ImageEntity> Search(string name);
 
-        IEnumerable<ImageEntity> GetRandomImages(int amount);
+        IEnumerable<ImageEntity> GetRandomImages(int amount, string exludeName);
     }
 }

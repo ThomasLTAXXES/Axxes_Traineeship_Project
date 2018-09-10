@@ -80,7 +80,7 @@ namespace Who.BL.Services
             roundEntity = RoundEntityFactory.Create(gameEntity.Id);
 
             // Determine the correct one
-            var randomImages = _imageRepository.GetRandomImages(IMAGES_PER_ROUND);
+            var randomImages = _imageRepository.GetRandomImages(IMAGES_PER_ROUND, _userRepository.Get(userId).FullName);
             int indexOfCorrectImageInList = (new Random()).Next(IMAGES_PER_ROUND);
             var correctImage = randomImages.ElementAt(indexOfCorrectImageInList);
 

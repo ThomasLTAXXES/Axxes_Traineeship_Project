@@ -11,11 +11,11 @@ namespace Who.DAL.Repositories
     {
         private Random _random = new Random();
         
-        public IEnumerable<ImageEntity> GetRandomImages(int amount)
+        public IEnumerable<ImageEntity> GetRandomImages(int amount, string excludeName)
         {
             using (var context = new ApplicationDbContext())
             {
-               return context.Images.OrderBy(r => Guid.NewGuid()).Take(amount).ToList();
+               return context.Images.Where(i=>!i.Name.Equals(excludeName)).OrderBy(r => Guid.NewGuid()).Take(amount).ToList();
             }
         }
 
