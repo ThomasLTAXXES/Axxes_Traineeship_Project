@@ -29,4 +29,3 @@ insert into #tmp
   
 
   drop table #tmp;
-  go
