@@ -144,8 +144,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="StoredProcedures\USP_GetHighScoresForEachPlayer.sql" />
-    <Content Include="StoredProcedures\USP_GetHighScoresForIndividualPlayer.sql" />
+    <Content Include="StoredProcedures\USP_GetHighScoresForEachPlayer.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="StoredProcedures\USP_GetHighScoresForIndividualPlayer.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>

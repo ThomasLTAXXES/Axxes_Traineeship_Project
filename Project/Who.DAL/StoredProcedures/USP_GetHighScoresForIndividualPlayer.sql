@@ -14,4 +14,3 @@ as
   group by a.Id, a.Duration
   having count(*) = @p_AmountOfRounds
  
-  go
