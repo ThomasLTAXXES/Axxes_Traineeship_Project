@@ -8,7 +8,7 @@ using Who.Web.Models;
 
 namespace Who.Web.Controllers
 {
-    [AuthorizeAttributeUnauthorizedRedirect]
+    [AuthorizeWithUnauthorizedRedirectAttribute]
     public class GameController : BaseController
     {
         private IGameService _gameService;
@@ -20,7 +20,7 @@ namespace Who.Web.Controllers
 
         public ActionResult Index()
         {
-            int gameId = _gameService.StartGame(GetUserIdFromSessionStorage());
+            int gameId = _gameService.StartNewGameOrGetExistingId(GetUserIdFromSessionStorage());
             return View(new GameViewModel { AmountOfRoundsPlayed = _gameService.RoundsPlayedInGame(gameId), TotalRounds = _gameService.GetRoundsPerGame(), Id = gameId });
         }
 

@@ -17,7 +17,7 @@ namespace Who.Web.Controllers
             int? userId = Session[SESSION_USER_ID] as int?;
             if (!userId.HasValue)
             {
-               // return -1;
+                return -1;
             }
             return 1;// userId.Value;
         }

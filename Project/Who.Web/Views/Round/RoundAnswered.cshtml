@@ -1,7 +1,7 @@
 ﻿@model Who.Web.Models.RoundAnsweredViewModel
 
 @{
-    ViewBag.Title = "RoundAnswered";
+ ViewBag.Title = "RoundAnswered";
 }
 
 <div class="row">
@@ -45,6 +45,12 @@
                     </figure>
                 }
             @:</div>
+            
+            if (i % 2 == 1)
+            {
+                <div class="clearfix"></div>
+            }
+
         }
 </div>
 <script>

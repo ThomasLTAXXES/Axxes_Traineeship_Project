@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using Who.Data;
+using Who.Data.Enums;
 
 namespace Who.DAL.DatabaseInitialize
 {
@@ -7,11 +8,23 @@ namespace Who.DAL.DatabaseInitialize
     {
         protected override void Seed(ApplicationDbContext context)
         {
+            context.MetaDataEntities.Add(new MetaDataEntity
+            {
+                Name = MetaDataEnum.ImagesPerRound.ToString(),
+                Value = 4.ToString(),
+                Type = MetaDataTypeEnum.Int.ToString()
+            });
+
+            context.MetaDataEntities.Add(new MetaDataEntity
+            {
+                Name = MetaDataEnum.RoundsPerGame.ToString(),
+                Value = 5.ToString(),
+                Type = MetaDataTypeEnum.Int.ToString()
+            });
+
             context.Users.Add(new UserEntity
             {
-                /*FirstName = "Tester",
-                LastName = "Demo"*/
-                FullName=""
+                FullName = "Demo Tester"
             });
             context.Images.Add(new ImageEntity { Name = "Henry Cavill", Url = "https://jnsntraineeship2018.blob.core.windows.net/whoiswho/pictures/cf5822bd-80e2-44be-8720-5b15ce963bbf.jpg" });
             context.Images.Add(new ImageEntity { Name = "Alexandra Daddario", Url = "https://jnsntraineeship2018.blob.core.windows.net/whoiswho/pictures/4976a068-d8f9-44ed-98a6-cc880f6be058.jpg" });

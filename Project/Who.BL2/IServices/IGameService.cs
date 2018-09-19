@@ -6,11 +6,11 @@ namespace Who.BL.IServices
 {
     public interface IGameService
     {
-        int StartGame(int userId);
+        int StartNewGameOrGetExistingId(int userId);
 
         bool MayTheGameHaveMoreRounds(int gameId);
 
-        Round StartRound(int gameId);
+        Round StartRoundOrGetExisting(int userId);
 
         bool AnswerRound(int answerImageId, int playerId);
         

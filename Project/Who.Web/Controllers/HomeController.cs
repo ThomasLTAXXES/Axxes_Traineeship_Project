@@ -10,7 +10,10 @@ namespace Who.Web.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            if (GetUserIdFromSessionStorage()==-1) {
+                return View();
+            }
+            return RedirectToAction("index","game");
         }
     }
 }

@@ -6,7 +6,7 @@ using Who.Web.Models;
 
 namespace Who.Web.Controllers
 {
-    [AuthorizeAttributeUnauthorizedRedirect]
+    [AuthorizeWithUnauthorizedRedirectAttribute]
     public class RoundController : BaseController
     {
         private IGameService _gameService;
@@ -17,10 +17,9 @@ namespace Who.Web.Controllers
         }
 
         // GET: Round
-        public ActionResult Play()
+        public ActionResult Play() 
         {
-            int gameId = _gameService.StartGame(GetUserIdFromSessionStorage());
-            Round currentRound = _gameService.StartRound(gameId);
+            Round currentRound = _gameService.StartRoundOrGetExisting(GetUserIdFromSessionStorage());
             RoundViewModel roundViewModel = new RoundViewModel
             {
                 Images = currentRound.Images.Select(i => new ImageViewModel { Url = i.Url, Id = i.Id }).ToList(),

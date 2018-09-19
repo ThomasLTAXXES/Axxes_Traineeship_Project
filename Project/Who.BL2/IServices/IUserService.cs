@@ -4,8 +4,8 @@ namespace Who.BL.IServices
 {
     public interface IUserService
     {
-        int Register(string userName, string tenantId);
+        int Register(string userName, string azureObjectIdentifier);
 
-        int GetUser(string tenantId);
+        int GetUser(string azureObjectIdentifier);
     }
 }

@@ -36,22 +36,13 @@ namespace Who.Web.Controllers
             }
         }
 
-        [AuthorizeAttributeUnauthorizedRedirect]
-        public void Test()
-        {
-            var user = User.Identity.Name;
-            var userClaims = User.Identity as System.Security.Claims.ClaimsIdentity;
-
-            var tenantId = userClaims?.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
-        }
-
-        private string GetTenantId()
+        private string GetAzureObjectIdentifier()
         {
             if (Request.IsAuthenticated)
             {
                 var userClaims = User.Identity as System.Security.Claims.ClaimsIdentity;
 
-                return userClaims?.FindFirst("http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
+                return userClaims.FindFirst("http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
             }
             return "";
         }
@@ -82,23 +73,17 @@ namespace Who.Web.Controllers
 
         public ActionResult SignOutCallback()
         {
-            if (Request.IsAuthenticated)
-            {
-                // Redirect to home page if the user is authenticated.
                 return RedirectToAction("Index", "Home");
-            }
-
-            return View();
         }
 
         public ActionResult LogInCallback()
         {
             if (Request.IsAuthenticated)
             {
-                var userId = _userService.GetUser(GetTenantId());
+                var userId = _userService.GetUser(GetAzureObjectIdentifier());
                 if (-1 == userId)
                 {
-                    userId = _userService.Register(GetUserName(), GetTenantId());
+                    userId = _userService.Register(GetUserName(), GetAzureObjectIdentifier());
                 }
                 AddUserIdToSessionStorage(userId);
                 // Redirect to home page if the user is authenticated.

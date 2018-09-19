@@ -43,11 +43,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IRepositories\IGameRepository.cs" />
+    <Compile Include="IRepositories\IImageRepository.cs" />
+    <Compile Include="IRepositories\IMetaDataRepository.cs" />
     <Compile Include="IRepositories\IRepository.cs" />
+    <Compile Include="IRepositories\IRoundRepository.cs" />
+    <Compile Include="IRepositories\IUserRepository.cs" />
     <Compile Include="IServices\IGameService.cs" />
+    <Compile Include="IServices\IImageService.cs" />
     <Compile Include="IServices\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\GameService.cs" />
+    <Compile Include="Services\ImageService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -57,6 +63,10 @@
     <ProjectReference Include="..\Who.BL.Domain\Who.BL.Domain.csproj">
       <Project>{133ebce8-5378-4d1b-8b13-9bd8485ad099}</Project>
       <Name>Who.BL.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Who.BL.Factory\Who.BL.Factory.csproj">
+      <Project>{73512eb4-991a-4a21-9ee3-1371351a3495}</Project>
+      <Name>Who.BL.Factory</Name>
     </ProjectReference>
     <ProjectReference Include="..\Who.Data\Who.Data.csproj">
       <Project>{b6665c68-2551-429c-9c2d-3e3d0bc7aadf}</Project>

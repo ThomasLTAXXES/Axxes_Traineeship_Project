@@ -3,7 +3,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Who.BL.IRepositories;
-using Who.DAL.Services;
 using Who.Data;
 using Who.Data.Results;
 
@@ -86,6 +85,14 @@ namespace Who.DAL.Repositories
                        .SqlQuery<GetHighScoresForIndividualPlayerResultItem>("USP_GetHighScoresForIndividualPlayer @p_AmountOfRounds, @p_StartDate, @p_EndDate, @p_UserId", sqlParams)
                        .ToList()
                 };
+            }
+        }
+
+        public GameEntity GetLatestGameForUser(int userId)
+        {
+          using(var context = new ApplicationDbContext())
+            {
+                return context.Games.Where(g => g.UserId == userId).OrderByDescending(x => x.StartDate).FirstOrDefault();
             }
         }
     }

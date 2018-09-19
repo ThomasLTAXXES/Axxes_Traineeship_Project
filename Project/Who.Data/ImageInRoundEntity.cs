@@ -11,8 +11,8 @@ namespace Who.Data
 
         public int RoundId { get; set; }
 
-        public ImageEntity Image { get; set; }
+        public virtual ImageEntity Image { get; set; }
 
-        public RoundEntity Round { get; set; }
+        public virtual RoundEntity Round { get; set; }
     }
 }

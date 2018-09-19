@@ -191,23 +191,27 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="AuthorizeAttributeUnauthorizedRedirect.cs" />
+    <Compile Include="Attributes\AuthorizeWithUnauthorizedRedirectAttribute.cs" />
     <Compile Include="Auth\Startup.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\RoundController.cs" />
+    <Compile Include="DIC\DependencyInversionContainer.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\GameViewModel.cs" />
+    <Compile Include="Models\ImagePersonViewModel.cs" />
     <Compile Include="Models\ImageViewModel.cs" />
     <Compile Include="Models\PersonalScoreViewModel.cs" />
     <Compile Include="Models\RoundAnsweredViewModel.cs" />
     <Compile Include="Models\RoundViewModel.cs" />
     <Compile Include="Models\ScoreViewModel.cs" />
+    <Compile Include="Models\SearchPersonViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -248,6 +252,7 @@
     <Content Include="Views\Round\RoundAnswered.cshtml" />
     <Content Include="Views\Game\HighScoresForAllPlayers.cshtml" />
     <Content Include="Views\Game\HighScoresPersonal.cshtml" />
+    <Content Include="Views\Image\GetAllPersons.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
@@ -258,10 +263,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />

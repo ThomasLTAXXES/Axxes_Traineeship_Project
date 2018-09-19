@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Who.BL.IRepositories;
 using Who.BL.IServices;
 using Who.Data;
 
@@ -6,21 +7,21 @@ namespace Who.BL.Services
 {
     public class UserService : IUserService
     {
-        private IRepository<UserEntity> _userRepository;
+        private IUserRepository _userRepository;
 
-        public UserService(IRepository<UserEntity> userRepository)
+        public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
 
-        public int GetUser(string tenantId)
+        public int GetUser(string azureObjectIdentifier)
         {
-            return _userRepository.GetAll().FirstOrDefault(x => tenantId.Equals(x.TenantId))?.Id ?? -1;
+            return _userRepository.GetIdByAzureObjectIdentifier(azureObjectIdentifier);
         }
 
-        public int Register(string userName, string tenantId)
+        public int Register(string userName, string azureObjectIdentifier)
         {
-            return _userRepository.Create(new UserEntity { FullName = userName, TenantId = tenantId }).Id;
+            return _userRepository.Create(new UserEntity { FullName = userName, AzureObjectIdentifier = azureObjectIdentifier }).Id;
         }
     }
 }

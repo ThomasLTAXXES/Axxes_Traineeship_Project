@@ -3,7 +3,7 @@ using System.Web.Routing;
 
 namespace Who.Web
 {
-    public class AuthorizeAttributeUnauthorizedRedirect : AuthorizeAttribute
+    public class AuthorizeWithUnauthorizedRedirectAttribute : AuthorizeAttribute
     {
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
@@ -11,8 +11,8 @@ namespace Who.Web
             filterContext.Result = new RedirectToRouteResult(
             new RouteValueDictionary
             {
-        { "action", "SignIn" },
-        { "controller", "Account" }
+                { "action", "SignIn" },
+                { "controller", "Account" }
             });
         }
     }

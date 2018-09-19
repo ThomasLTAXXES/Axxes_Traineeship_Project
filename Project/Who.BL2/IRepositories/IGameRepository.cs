@@ -10,5 +10,7 @@ namespace Who.BL.IRepositories
         GetHighScoresForAllPlayersResult GetHighScoresForAllPlayers(int amountOfRounds, DateTime startDate, DateTime endDate);
 
         GetHighScoresForIndividualPlayerResult GetHighScoresForIndividualPlayer(int amountOfRounds, DateTime startDate, DateTime endDate, int userId);
+
+        GameEntity GetLatestGameForUser(int userId);
     }
 }
