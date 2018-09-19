@@ -57,6 +57,23 @@ figure {
     border-color: #616666;
 }
 
+    .navbar-inverse .navbar-nav > li > a {
+        color: #fff;
+    }
+
+        .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+            color: #FFAA33;
+            background-color: transparent;
+        }
+
 .navbar-inverse .navbar-toggle {
     border-color: #fff;
+}
+
+.logo img {
+    max-width: 7em;
+    display: inline-block;
+    vertical-align: middle;
+    margin-top: 12.5px;
+    margin-left: 20px;
 }
