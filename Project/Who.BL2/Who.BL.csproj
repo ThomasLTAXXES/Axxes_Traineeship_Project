@@ -72,10 +72,6 @@
       <Project>{b6665c68-2551-429c-9c2d-3e3d0bc7aadf}</Project>
       <Name>Who.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Who.Utils\Who.Utils.csproj">
-      <Project>{2c7de2e3-bce6-4ea5-a784-35bf9d90a77c}</Project>
-      <Name>Who.Utils</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
